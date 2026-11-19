@@ -1,0 +1,17 @@
+[
+  { "id": "guitarra", "name": "Guitarra", "category": "Música" },
+  { "id": "piano", "name": "Piano", "category": "Música" },
+  { "id": "ingles-conversacional", "name": "Inglés conversacional", "category": "Idiomas" },
+  { "id": "frances-basico", "name": "Francés básico", "category": "Idiomas" },
+  { "id": "javascript", "name": "JavaScript", "category": "Programación" },
+  { "id": "python", "name": "Python", "category": "Programación" },
+  { "id": "sql", "name": "SQL y bases de datos", "category": "Programación" },
+  { "id": "diseno-grafico", "name": "Diseño gráfico", "category": "Diseño" },
+  { "id": "fotografia", "name": "Fotografía", "category": "Arte" },
+  { "id": "dibujo", "name": "Dibujo a lápiz", "category": "Arte" },
+  { "id": "cocina-mexicana", "name": "Cocina mexicana", "category": "Cocina" },
+  { "id": "reposteria", "name": "Repostería", "category": "Cocina" },
+  { "id": "excel", "name": "Excel avanzado", "category": "Productividad" },
+  { "id": "oratoria", "name": "Oratoria", "category": "Comunicación" },
+  { "id": "yoga", "name": "Yoga", "category": "Bienestar" }
+]
