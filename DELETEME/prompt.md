@@ -112,7 +112,7 @@ El remoto del equipo es `https://github.com/legarciabal-coder/skillBarter`. Su r
 ```bash
 git clone https://github.com/legarciabal-coder/skillBarter.git
 cd skillBarter
-git checkout -b develop          # rama de integración
+git checkout -b develop          # rama de integración
 git push -u origin develop
 ```
 
@@ -125,18 +125,18 @@ git clone https://github.com/legarciabal-coder/skillBarter.git
 cd skillBarter
 git checkout develop
 git pull
-git checkout -b feature/<nombre-de-su-rama>      # ver tabla de la sección 1
+git checkout -b feature/<nombre-de-su-rama>      # ver tabla de la sección 1
 ```
 
 ### 2.3 Flujo diario (se repite en cada tarea)
 
 ```bash
-git checkout develop && git pull                 # 1. actualizar
-git checkout -b feature/mi-tarea                 # 2. rama de trabajo
+git checkout develop && git pull                 # 1. actualizar
+git checkout -b feature/mi-tarea                 # 2. rama de trabajo
 # ... editar ...
 git add -A
 git commit -m "feat: descripción corta de lo hecho"
-git push -u origin feature/mi-tarea              # 3. subir
+git push -u origin feature/mi-tarea              # 3. subir
 # 4. abrir PR en GitHub: base = develop, compare = feature/mi-tarea (o con gh CLI):
 gh pr create --base develop --title "feat: ..." --body "Qué cambia y cómo probarlo"
 ```
@@ -166,21 +166,21 @@ P1 sube **primero** estos archivos a `develop` (PR `feature/repo-docs`), porque 
 ```text
 skillBarter/
 ├── apps/
-│   ├── api/                  # backend Node.js + Express
-│   │   ├── data/skills.json
-│   │   ├── scripts/          # seed-skills, get-token
-│   │   └── src/{config,middleware,routes,services,utils}
-│   └── web/                  # frontend React + Vite
-├── firebase/                 # reglas e índices de Firestore
+│   ├── api/                  # backend Node.js + Express
+│   │   ├── data/skills.json
+│   │   ├── scripts/          # seed-skills, get-token
+│   │   └── src/{config,middleware,routes,services,utils}
+│   └── web/                  # frontend React + Vite
+├── firebase/                 # reglas e índices de Firestore
 ├── docs/
-│   ├── revisiones/           # R1.md, R2.md, R3.md
-│   ├── arquitectura.md  historias-usuario.md  modelo-firestore.md
-│   └── guias/                # estas guías
-├── tests/api/                # pruebas automatizadas
-├── evidencias/               # capturas y materiales
+│   ├── revisiones/           # R1.md, R2.md, R3.md
+│   ├── arquitectura.md  historias-usuario.md  modelo-firestore.md
+│   └── guias/                # estas guías
+├── tests/api/                # pruebas automatizadas
+├── evidencias/               # capturas y materiales
 ├── .github/pull_request_template.md
-├── .env.example              # nombres de variables SIN secretos
-├── firebase.json  jest.config.js  package.json  README.md
+├── .env.example              # nombres de variables SIN secretos
+├── firebase.json  jest.config.js  package.json  README.md
 ```
 
 Crear las carpetas:
@@ -199,27 +199,27 @@ touch evidencias/.gitkeep docs/revisiones/.gitkeep
 
 ```json
 {
-  "name": "skillbarter",
-  "version": "0.1.0",
-  "private": true,
-  "description": "SkillBarter: intercambio de habilidades mediante horas",
-  "workspaces": [
-    "apps/api",
-    "apps/web"
-  ],
-  "scripts": {
-    "dev:api": "npm run dev -w apps/api",
-    "dev:web": "npm run dev -w apps/web",
-    "emulators": "firebase emulators:start --only auth,firestore --project demo-skillbarter",
-    "seed:skills": "npm run seed:skills -w apps/api",
-    "test": "firebase emulators:exec --only firestore --project demo-skillbarter \"jest --runInBand\"",
-    "token": "npm run token -w apps/api --"
-  },
-  "devDependencies": {
-    "firebase-tools": "^15.0.0",
-    "jest": "^29.7.0",
-    "supertest": "^7.0.0"
-  }
+  "name": "skillbarter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SkillBarter: intercambio de habilidades mediante horas",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w apps/api",
+    "dev:web": "npm run dev -w apps/web",
+    "emulators": "firebase emulators:start --only auth,firestore --project demo-skillbarter",
+    "seed:skills": "npm run seed:skills -w apps/api",
+    "test": "firebase emulators:exec --only firestore --project demo-skillbarter \"jest --runInBand\"",
+    "token": "npm run token -w apps/api --"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.0.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
 }
 ```
 
@@ -261,7 +261,7 @@ FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
 FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099
 
 # Producción: JSON de la cuenta de servicio codificado en base64. NUNCA subirlo al repositorio.
-# Genera el valor con:  base64 -w0 serviceAccount.json
+# Genera el valor con:  base64 -w0 serviceAccount.json
 # FIREBASE_SERVICE_ACCOUNT_BASE64=
 
 # ===== WEB (apps/web) — solo variables con prefijo VITE_ llegan al navegador =====
@@ -285,16 +285,16 @@ cp .env.example .env
 
 ```json
 {
-  "firestore": {
-    "rules": "firebase/firestore.rules",
-    "indexes": "firebase/firestore.indexes.json"
-  },
-  "emulators": {
-    "auth": { "port": 9099 },
-    "firestore": { "port": 8080 },
-    "ui": { "enabled": true, "port": 4000 },
-    "singleProjectMode": true
-  }
+  "firestore": {
+    "rules": "firebase/firestore.rules",
+    "indexes": "firebase/firestore.indexes.json"
+  },
+  "emulators": {
+    "auth": { "port": 9099 },
+    "firestore": { "port": 8080 },
+    "ui": { "enabled": true, "port": 4000 },
+    "singleProjectMode": true
+  }
 }
 ```
 
@@ -305,9 +305,9 @@ cp .env.example .env
 
 ```javascript
 module.exports = {
-  testEnvironment: 'node',
-  roots: ['<rootDir>/tests/api'],
-  testTimeout: 20000,
+  testEnvironment: 'node',
+  roots: ['<rootDir>/tests/api'],
+  testTimeout: 20000,
 };
 ```
 
@@ -324,49 +324,49 @@ rules_version = '2';
 // Regla de oro: TODA escritura pasa por la API (Admin SDK, que ignora estas reglas).
 // Los clientes web nunca pueden escribir en Firestore; solo leen lo que les pertenece.
 service cloud.firestore {
-  match /databases/{database}/documents {
+  match /databases/{database}/documents {
 
-    function signedIn() {
-      return request.auth != null;
-    }
+    function signedIn() {
+      return request.auth != null;
+    }
 
-    match /skills/{skillId} {
-      allow read: if signedIn();
-      allow write: if false;
-    }
+    match /skills/{skillId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
 
-    match /users/{uid} {
-      allow read: if signedIn() && request.auth.uid == uid;
-      allow write: if false;
-    }
+    match /users/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
 
-    match /learningRequests/{requestId} {
-      allow read: if signedIn();
-      allow write: if false;
-    }
+    match /learningRequests/{requestId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
 
-    match /sessions/{sessionId} {
-      allow read: if signedIn()
-        && (resource.data.teacherId == request.auth.uid
-            || resource.data.learnerId == request.auth.uid);
-      allow write: if false;
-    }
+    match /sessions/{sessionId} {
+      allow read: if signedIn()
+        && (resource.data.teacherId == request.auth.uid
+            || resource.data.learnerId == request.auth.uid);
+      allow write: if false;
+    }
 
-    match /wallets/{uid} {
-      allow read: if signedIn() && request.auth.uid == uid;
-      allow write: if false;
-    }
+    match /wallets/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
 
-    match /creditTransactions/{txId} {
-      allow read: if signedIn() && resource.data.userId == request.auth.uid;
-      allow write: if false;
-    }
+    match /creditTransactions/{txId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
 
-    match /reviews/{reviewId} {
-      allow read: if signedIn();
-      allow write: if false;
-    }
-  }
+    match /reviews/{reviewId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+  }
 }
 ```
 
@@ -377,41 +377,41 @@ Los índices compuestos que necesitarán las consultas de R2/R3 (se despliegan j
 
 ```json
 {
-  "indexes": [
-    {
-      "collectionGroup": "sessions",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "teacherId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "sessions",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "learnerId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "creditTransactions",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "userId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
-      ]
-    },
-    {
-      "collectionGroup": "reviews",
-      "queryScope": "COLLECTION",
-      "fields": [
-        { "fieldPath": "revieweeId", "order": "ASCENDING" },
-        { "fieldPath": "createdAt", "order": "DESCENDING" }
-      ]
-    }
-  ],
-  "fieldOverrides": []
+  "indexes": [
+    {
+      "collectionGroup": "sessions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "teacherId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "sessions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "learnerId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "creditTransactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "userId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "reviews",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "revieweeId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
 }
 ```
 
@@ -430,8 +430,8 @@ Trabajarán con **dos modos**. Elijan el modo con las variables de `.env`; el c�
 ### 4.1 Modo A — Emuladores
 
 ```bash
-npm install                 # instala TODO (raíz, api y web)
-npm run emulators           # terminal 1: Auth (9099) + Firestore (8080) + panel (http://localhost:4000)
+npm install                 # instala TODO (raíz, api y web)
+npm run emulators           # terminal 1: Auth (9099) + Firestore (8080) + panel (http://localhost:4000)
 ```
 
 Los datos del emulador **se pierden al apagarlo**; por eso existen los *seeds* (§5.6) que se vuelven a ejecutar en segundos.
@@ -500,27 +500,27 @@ Las dependencias y por qué existen:
 
 ```json
 {
-  "name": "@skillbarter/api",
-  "version": "0.1.0",
-  "private": true,
-  "main": "src/server.js",
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
-    "seed:skills": "node scripts/seed-skills.js",
-    "token": "node scripts/get-token.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^18.0.10",
-    "express": "^4.22.3",
-    "firebase-admin": "^14.5.1",
-    "helmet": "^8.3.0",
-    "zod": "^3.25.76"
-  }
+  "name": "@skillbarter/api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "seed:skills": "node scripts/seed-skills.js",
+    "token": "node scripts/get-token.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^4.22.3",
+    "firebase-admin": "^14.5.1",
+    "helmet": "^8.3.0",
+    "zod": "^3.25.76"
+  }
 }
 ```
 
@@ -541,17 +541,17 @@ npm install
 
 ```javascript
 class HttpError extends Error {
-  constructor(status, code, message, details) {
-    super(message);
-    this.status = status;
-    this.code = code;
-    this.details = details;
-  }
+  constructor(status, code, message, details) {
+    super(message);
+    this.status = status;
+    this.code = code;
+    this.details = details;
+  }
 }
 
 // Express 4 no captura promesas rechazadas: este envoltorio las manda a next(err).
 const asyncHandler = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 module.exports = { HttpError, asyncHandler };
 ```
@@ -564,12 +564,12 @@ Firestore devuelve *Timestamps*; este serializador los convierte a texto ISO par
 ```javascript
 // Convierte Timestamps de Firestore a cadenas ISO para devolver JSON limpio.
 function serialize(value) {
-  if (value && typeof value.toDate === 'function') return value.toDate().toISOString();
-  if (Array.isArray(value)) return value.map(serialize);
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, serialize(v)]));
-  }
-  return value;
+  if (value && typeof value.toDate === 'function') return value.toDate().toISOString();
+  if (Array.isArray(value)) return value.map(serialize);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, serialize(v)]));
+  }
+  return value;
 }
 
 const docToJson = (snap) => ({ id: snap.id, ...serialize(snap.data()) });
@@ -590,26 +590,26 @@ const { getFirestore } = require('firebase-admin/firestore');
 // - Con emuladores (FIRESTORE_EMULATOR_HOST definido) no necesita credenciales.
 // - En producción lee la cuenta de servicio desde FIREBASE_SERVICE_ACCOUNT_BASE64.
 function initFirebase() {
-  const projectId = process.env.FIREBASE_PROJECT_ID || 'demo-skillbarter';
-  if (!getApps().length) {
-    const b64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
-    if (b64) {
-      const serviceAccount = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'));
-      initializeApp({ credential: cert(serviceAccount), projectId });
-    } else {
-      initializeApp({ projectId });
-    }
-    getFirestore().settings({ ignoreUndefinedProperties: true });
-  }
-  return { db: getFirestore() };
+  const projectId = process.env.FIREBASE_PROJECT_ID || 'demo-skillbarter';
+  if (!getApps().length) {
+    const b64 = process.env.FIREBASE_SERVICE_ACCOUNT_BASE64;
+    if (b64) {
+      const serviceAccount = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'));
+      initializeApp({ credential: cert(serviceAccount), projectId });
+    } else {
+      initializeApp({ projectId });
+    }
+    getFirestore().settings({ ignoreUndefinedProperties: true });
+  }
+  return { db: getFirestore() };
 }
 
 // Verificador real de ID tokens. Se carga de forma perezosa a propósito:
 // "firebase-admin/auth" depende de "jose" (solo ESM) y Jest 29 no sabe importarlo.
 // Las pruebas inyectan su propio verifyToken y nunca llegan a cargar este módulo.
 function realVerifyToken(token) {
-  const { getAuth } = require('firebase-admin/auth');
-  return getAuth().verifyIdToken(token);
+  const { getAuth } = require('firebase-admin/auth');
+  return getAuth().verifyIdToken(token);
 }
 
 module.exports = { initFirebase, realVerifyToken };
@@ -624,12 +624,12 @@ module.exports = { initFirebase, realVerifyToken };
 // Valida body o query con un esquema Zod y reemplaza el valor por el ya saneado
 // (Zod descarta campos desconocidos, por eso un cliente no puede enviar "role").
 function validate(schema, source = 'body') {
-  return (req, _res, next) => {
-    const result = schema.safeParse(req[source]);
-    if (!result.success) return next(result.error);
-    req[source] = result.data;
-    next();
-  };
+  return (req, _res, next) => {
+    const result = schema.safeParse(req[source]);
+    if (!result.success) return next(result.error);
+    req[source] = result.data;
+    next();
+  };
 }
 
 module.exports = { validate };
@@ -645,39 +645,39 @@ const { HttpError, asyncHandler } = require('../utils/errors');
 
 // verifyToken se inyecta: en producción es admin.auth().verifyIdToken y en pruebas un doble.
 function makeAuth({ db, verifyToken }) {
-  // 1) Comprueba el ID token de Firebase Auth.
-  const authenticate = asyncHandler(async (req, _res, next) => {
-    const [scheme, token] = (req.headers.authorization || '').split(' ');
-    if (scheme !== 'Bearer' || !token) {
-      throw new HttpError(401, 'UNAUTHENTICATED', 'Falta el token de autenticación');
-    }
-    try {
-      const decoded = await verifyToken(token);
-      req.auth = { uid: decoded.uid, email: decoded.email || null };
-    } catch {
-      throw new HttpError(401, 'INVALID_TOKEN', 'Token inválido o expirado');
-    }
-    next();
-  });
+  // 1) Comprueba el ID token de Firebase Auth.
+  const authenticate = asyncHandler(async (req, _res, next) => {
+    const [scheme, token] = (req.headers.authorization || '').split(' ');
+    if (scheme !== 'Bearer' || !token) {
+      throw new HttpError(401, 'UNAUTHENTICATED', 'Falta el token de autenticación');
+    }
+    try {
+      const decoded = await verifyToken(token);
+      req.auth = { uid: decoded.uid, email: decoded.email || null };
+    } catch {
+      throw new HttpError(401, 'INVALID_TOKEN', 'Token inválido o expirado');
+    }
+    next();
+  });
 
-  // 2) Carga el perfil (y con él el rol) desde Firestore. El rol NUNCA viene del cliente.
-  const loadUser = asyncHandler(async (req, _res, next) => {
-    const snap = await db.collection('users').doc(req.auth.uid).get();
-    if (!snap.exists) {
-      throw new HttpError(403, 'PROFILE_REQUIRED', 'Completa tu perfil antes de continuar');
-    }
-    const user = { id: snap.id, ...snap.data() };
-    if (user.disabled) throw new HttpError(403, 'USER_DISABLED', 'Tu cuenta está deshabilitada');
-    req.user = user;
-    next();
-  });
+  // 2) Carga el perfil (y con él el rol) desde Firestore. El rol NUNCA viene del cliente.
+  const loadUser = asyncHandler(async (req, _res, next) => {
+    const snap = await db.collection('users').doc(req.auth.uid).get();
+    if (!snap.exists) {
+      throw new HttpError(403, 'PROFILE_REQUIRED', 'Completa tu perfil antes de continuar');
+    }
+    const user = { id: snap.id, ...snap.data() };
+    if (user.disabled) throw new HttpError(403, 'USER_DISABLED', 'Tu cuenta está deshabilitada');
+    req.user = user;
+    next();
+  });
 
-  const requireRole = (...roles) => (req, _res, next) =>
-    roles.includes(req.user?.role)
-      ? next()
-      : next(new HttpError(403, 'FORBIDDEN', 'No tienes permiso para esta acción'));
+  const requireRole = (...roles) => (req, _res, next) =>
+    roles.includes(req.user?.role)
+      ? next()
+      : next(new HttpError(403, 'FORBIDDEN', 'No tienes permiso para esta acción'));
 
-  return { authenticate, loadUser, requireRole, member: [authenticate, loadUser] };
+  return { authenticate, loadUser, requireRole, member: [authenticate, loadUser] };
 }
 
 module.exports = { makeAuth };
@@ -691,31 +691,31 @@ const { ZodError } = require('zod');
 const { HttpError } = require('../utils/errors');
 
 function notFound(_req, _res, next) {
-  next(new HttpError(404, 'NOT_FOUND', 'Ruta no encontrada'));
+  next(new HttpError(404, 'NOT_FOUND', 'Ruta no encontrada'));
 }
 
 // Formato único de error: { error: { code, message, details? } }
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, _req, res, _next) {
-  if (err instanceof ZodError) {
-    return res.status(400).json({
-      error: {
-        code: 'VALIDATION_ERROR',
-        message: 'Datos de entrada inválidos',
-        details: err.issues.map((i) => ({ path: i.path.join('.'), message: i.message })),
-      },
-    });
-  }
-  if (err instanceof HttpError) {
-    return res.status(err.status).json({
-      error: { code: err.code, message: err.message, details: err.details },
-    });
-  }
-  if (err.type === 'entity.parse.failed') {
-    return res.status(400).json({ error: { code: 'BAD_JSON', message: 'JSON mal formado' } });
-  }
-  if (process.env.NODE_ENV !== 'test') console.error(err);
-  return res.status(500).json({ error: { code: 'INTERNAL', message: 'Error interno del servidor' } });
+  if (err instanceof ZodError) {
+    return res.status(400).json({
+      error: {
+        code: 'VALIDATION_ERROR',
+        message: 'Datos de entrada inválidos',
+        details: err.issues.map((i) => ({ path: i.path.join('.'), message: i.message })),
+      },
+    });
+  }
+  if (err instanceof HttpError) {
+    return res.status(err.status).json({
+      error: { code: err.code, message: err.message, details: err.details },
+    });
+  }
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({ error: { code: 'BAD_JSON', message: 'JSON mal formado' } });
+  }
+  if (process.env.NODE_ENV !== 'test') console.error(err);
+  return res.status(500).json({ error: { code: 'INTERNAL', message: 'Error interno del servidor' } });
 }
 
 module.exports = { notFound, errorHandler };
@@ -738,52 +738,52 @@ const idParams = z.object({ id: docId });
 const skillId = z.string().regex(/^[a-z0-9-]{1,60}$/, 'Identificador de habilidad inválido');
 
 const availabilitySlot = z
-  .object({
-    day: z.number().int().min(0).max(6), // 0 = domingo ... 6 = sábado
-    start: z.string().regex(HHMM, 'Formato HH:MM'),
-    end: z.string().regex(HHMM, 'Formato HH:MM'),
-  })
-  .refine((s) => s.start < s.end, { message: 'La hora de inicio debe ser menor que la de fin' });
+  .object({
+    day: z.number().int().min(0).max(6), // 0 = domingo ... 6 = sábado
+    start: z.string().regex(HHMM, 'Formato HH:MM'),
+    end: z.string().regex(HHMM, 'Formato HH:MM'),
+  })
+  .refine((s) => s.start < s.end, { message: 'La hora de inicio debe ser menor que la de fin' });
 
 const profileSchema = z.object({
-  displayName: z.string().trim().min(2, 'Mínimo 2 caracteres').max(60),
-  bio: z.string().trim().max(500).default(''),
-  offeredSkills: z
-    .array(z.object({ skillId, level: z.enum(['beginner', 'intermediate', 'advanced']) }))
-    .max(20)
-    .default([]),
-  wantedSkills: z.array(skillId).max(20).default([]),
-  availability: z.array(availabilitySlot).max(21).default([]),
+  displayName: z.string().trim().min(2, 'Mínimo 2 caracteres').max(60),
+  bio: z.string().trim().max(500).default(''),
+  offeredSkills: z
+    .array(z.object({ skillId, level: z.enum(['beginner', 'intermediate', 'advanced']) }))
+    .max(20)
+    .default([]),
+  wantedSkills: z.array(skillId).max(20).default([]),
+  availability: z.array(availabilitySlot).max(21).default([]),
 });
 
 const DURATIONS = [30, 60, 90, 120];
 
 const requestCreateSchema = z.object({
-  skillId,
-  description: z.string().trim().min(10, 'Describe qué quieres aprender (mínimo 10 caracteres)').max(500),
-  durationMinutes: z.number().int().refine((n) => DURATIONS.includes(n), 'Duración permitida: 30, 60, 90 o 120').default(60),
+  skillId,
+  description: z.string().trim().min(10, 'Describe qué quieres aprender (mínimo 10 caracteres)').max(500),
+  durationMinutes: z.number().int().refine((n) => DURATIONS.includes(n), 'Duración permitida: 30, 60, 90 o 120').default(60),
 });
 
 const userSearchSchema = z.object({
-  offers: skillId.optional(),
-  wants: skillId.optional(),
+  offers: skillId.optional(),
+  wants: skillId.optional(),
 });
 
 const requestListSchema = z.object({
-  status: z.enum(['open', 'matched', 'fulfilled', 'cancelled']).optional(),
-  skillId: skillId.optional(),
-  mine: z.enum(['true', 'false']).optional(),
+  status: z.enum(['open', 'matched', 'fulfilled', 'cancelled']).optional(),
+  skillId: skillId.optional(),
+  mine: z.enum(['true', 'false']).optional(),
 });
 
 module.exports = {
-  docId,
-  idParams,
-  skillId,
-  DURATIONS,
-  profileSchema,
-  requestCreateSchema,
-  requestListSchema,
-  userSearchSchema,
+  docId,
+  idParams,
+  skillId,
+  DURATIONS,
+  profileSchema,
+  requestCreateSchema,
+  requestListSchema,
+  userSearchSchema,
 };
 ```
 
@@ -797,14 +797,14 @@ const { HttpError } = require('../utils/errors');
 
 // Verifica en el servidor que todas las habilidades referenciadas existan en el catálogo.
 async function assertSkillsExist(db, ids) {
-  const unique = [...new Set(ids)];
-  if (!unique.length) return new Map();
-  const snaps = await db.getAll(...unique.map((id) => db.collection('skills').doc(id)));
-  const missing = unique.filter((_, i) => !snaps[i].exists);
-  if (missing.length) {
-    throw new HttpError(400, 'UNKNOWN_SKILL', `Habilidades inexistentes: ${missing.join(', ')}`);
-  }
-  return new Map(snaps.map((s) => [s.id, s.data()]));
+  const unique = [...new Set(ids)];
+  if (!unique.length) return new Map();
+  const snaps = await db.getAll(...unique.map((id) => db.collection('skills').doc(id)));
+  const missing = unique.filter((_, i) => !snaps[i].exists);
+  if (missing.length) {
+    throw new HttpError(400, 'UNKNOWN_SKILL', `Habilidades inexistentes: ${missing.join(', ')}`);
+  }
+  return new Map(snaps.map((s) => [s.id, s.data()]));
 }
 
 module.exports = { assertSkillsExist };
@@ -823,19 +823,19 @@ const { asyncHandler } = require('../utils/errors');
 const { docToJson } = require('../utils/serialize');
 
 module.exports = function skillsRouter({ db, auth }) {
-  const router = express.Router();
+  const router = express.Router();
 
-  // Catálogo de habilidades (lo necesita el formulario de perfil, por eso solo exige token).
-  router.get(
-    '/',
-    auth.authenticate,
-    asyncHandler(async (_req, res) => {
-      const snap = await db.collection('skills').orderBy('name').get();
-      res.json(snap.docs.map(docToJson));
-    })
-  );
+  // Catálogo de habilidades (lo necesita el formulario de perfil, por eso solo exige token).
+  router.get(
+    '/',
+    auth.authenticate,
+    asyncHandler(async (_req, res) => {
+      const snap = await db.collection('skills').orderBy('name').get();
+      res.json(snap.docs.map(docToJson));
+    })
+  );
 
-  return router;
+  return router;
 };
 ```
 
@@ -860,103 +860,103 @@ const { FieldValue } = require('firebase-admin/firestore');
 
 // Solo datos públicos: nunca email ni rol.
 const toPublicProfile = (u) => ({
-  id: u.id,
-  displayName: u.displayName,
-  bio: u.bio,
-  offeredSkills: u.offeredSkills,
-  wantedSkills: u.wantedSkills,
-  availability: u.availability,
-  ratingAvg: u.ratingAvg ?? null,
-  ratingCount: u.ratingCount ?? 0,
+  id: u.id,
+  displayName: u.displayName,
+  bio: u.bio,
+  offeredSkills: u.offeredSkills,
+  wantedSkills: u.wantedSkills,
+  availability: u.availability,
+  ratingAvg: u.ratingAvg ?? null,
+  ratingCount: u.ratingCount ?? 0,
 });
 
 // offeredSkillIds / wantedSkillIds están desnormalizados para poder usar array-contains.
 const profileFields = (p) => ({
-  displayName: p.displayName,
-  bio: p.bio,
-  offeredSkills: p.offeredSkills,
-  offeredSkillIds: p.offeredSkills.map((s) => s.skillId),
-  wantedSkills: p.wantedSkills,
-  availability: p.availability,
+  displayName: p.displayName,
+  bio: p.bio,
+  offeredSkills: p.offeredSkills,
+  offeredSkillIds: p.offeredSkills.map((s) => s.skillId),
+  wantedSkills: p.wantedSkills,
+  availability: p.availability,
 });
 
 module.exports = function usersRouter({ db, auth }) {
-  const router = express.Router();
+  const router = express.Router();
 
-  // Alta de perfil (primer acceso tras registrarse en Firebase Auth).
-  router.post(
-    '/me',
-    auth.authenticate,
-    validate(profileSchema),
-    asyncHandler(async (req, res) => {
-      const p = req.body;
-      await assertSkillsExist(db, [...p.offeredSkills.map((s) => s.skillId), ...p.wantedSkills]);
-      const ref = db.collection('users').doc(req.auth.uid);
-      try {
-        await ref.create({
-          ...profileFields(p),
-          email: req.auth.email,
-          role: 'member', // el rol lo fija el servidor, jamás el cliente
-          disabled: false,
-          ratingSum: 0,
-          ratingCount: 0,
-          ratingAvg: null,
-          createdAt: FieldValue.serverTimestamp(),
-          updatedAt: FieldValue.serverTimestamp(),
-        });
-      } catch (err) {
-        if (err.code === 6) throw new HttpError(409, 'PROFILE_EXISTS', 'El perfil ya existe; usa PUT /api/users/me');
-        throw err;
-      }
-      res.status(201).json(docToJson(await ref.get()));
-    })
-  );
+  // Alta de perfil (primer acceso tras registrarse en Firebase Auth).
+  router.post(
+    '/me',
+    auth.authenticate,
+    validate(profileSchema),
+    asyncHandler(async (req, res) => {
+      const p = req.body;
+      await assertSkillsExist(db, [...p.offeredSkills.map((s) => s.skillId), ...p.wantedSkills]);
+      const ref = db.collection('users').doc(req.auth.uid);
+      try {
+        await ref.create({
+          ...profileFields(p),
+          email: req.auth.email,
+          role: 'member', // el rol lo fija el servidor, jamás el cliente
+          disabled: false,
+          ratingSum: 0,
+          ratingCount: 0,
+          ratingAvg: null,
+          createdAt: FieldValue.serverTimestamp(),
+          updatedAt: FieldValue.serverTimestamp(),
+        });
+      } catch (err) {
+        if (err.code === 6) throw new HttpError(409, 'PROFILE_EXISTS', 'El perfil ya existe; usa PUT /api/users/me');
+        throw err;
+      }
+      res.status(201).json(docToJson(await ref.get()));
+    })
+  );
 
-  router.get(
-    '/me',
-    auth.authenticate,
-    asyncHandler(async (req, res) => {
-      const snap = await db.collection('users').doc(req.auth.uid).get();
-      if (!snap.exists) throw new HttpError(404, 'PROFILE_NOT_FOUND', 'Aún no has creado tu perfil');
-      res.json(docToJson(snap));
-    })
-  );
+  router.get(
+    '/me',
+    auth.authenticate,
+    asyncHandler(async (req, res) => {
+      const snap = await db.collection('users').doc(req.auth.uid).get();
+      if (!snap.exists) throw new HttpError(404, 'PROFILE_NOT_FOUND', 'Aún no has creado tu perfil');
+      res.json(docToJson(snap));
+    })
+  );
 
-  router.put(
-    '/me',
-    ...auth.member,
-    validate(profileSchema),
-    asyncHandler(async (req, res) => {
-      const p = req.body;
-      await assertSkillsExist(db, [...p.offeredSkills.map((s) => s.skillId), ...p.wantedSkills]);
-      const ref = db.collection('users').doc(req.user.id);
-      await ref.update({ ...profileFields(p), updatedAt: FieldValue.serverTimestamp() });
-      res.json(docToJson(await ref.get()));
-    })
-  );
+  router.put(
+    '/me',
+    ...auth.member,
+    validate(profileSchema),
+    asyncHandler(async (req, res) => {
+      const p = req.body;
+      await assertSkillsExist(db, [...p.offeredSkills.map((s) => s.skillId), ...p.wantedSkills]);
+      const ref = db.collection('users').doc(req.user.id);
+      await ref.update({ ...profileFields(p), updatedAt: FieldValue.serverTimestamp() });
+      res.json(docToJson(await ref.get()));
+    })
+  );
 
-  // Búsqueda de miembros por habilidad ofrecida (offers) y/o deseada (wants).
-  router.get(
-    '/',
-    ...auth.member,
-    validate(userSearchSchema, 'query'),
-    asyncHandler(async (req, res) => {
-      const { offers, wants } = req.query;
-      let query = db.collection('users');
-      // Firestore permite un solo array-contains por consulta: el segundo filtro se aplica en memoria.
-      if (offers) query = query.where('offeredSkillIds', 'array-contains', offers);
-      else if (wants) query = query.where('wantedSkills', 'array-contains', wants);
-      const snap = await query.limit(100).get();
-      const users = snap.docs
-        .map((d) => ({ id: d.id, ...serialize(d.data()) }))
-        .filter((u) => u.id !== req.user.id && !u.disabled)
-        .filter((u) => (offers && wants ? u.wantedSkills.includes(wants) : true))
-        .map(toPublicProfile);
-      res.json(users);
-    })
-  );
+  // Búsqueda de miembros por habilidad ofrecida (offers) y/o deseada (wants).
+  router.get(
+    '/',
+    ...auth.member,
+    validate(userSearchSchema, 'query'),
+    asyncHandler(async (req, res) => {
+      const { offers, wants } = req.query;
+      let query = db.collection('users');
+      // Firestore permite un solo array-contains por consulta: el segundo filtro se aplica en memoria.
+      if (offers) query = query.where('offeredSkillIds', 'array-contains', offers);
+      else if (wants) query = query.where('wantedSkills', 'array-contains', wants);
+      const snap = await query.limit(100).get();
+      const users = snap.docs
+        .map((d) => ({ id: d.id, ...serialize(d.data()) }))
+        .filter((u) => u.id !== req.user.id && !u.disabled)
+        .filter((u) => (offers && wants ? u.wantedSkills.includes(wants) : true))
+        .map(toPublicProfile);
+      res.json(users);
+    })
+  );
 
-  return router;
+  return router;
 };
 
 module.exports.toPublicProfile = toPublicProfile;
@@ -977,63 +977,63 @@ const { assertSkillsExist } = require('../services/skillsService');
 const { FieldValue } = require('firebase-admin/firestore');
 
 module.exports = function requestsRouter({ db, auth }) {
-  const router = express.Router();
+  const router = express.Router();
 
-  // Alta de solicitud de aprendizaje.
-  router.post(
-    '/',
-    ...auth.member,
-    validate(requestCreateSchema),
-    asyncHandler(async (req, res) => {
-      const { skillId, description, durationMinutes } = req.body;
-      const skills = await assertSkillsExist(db, [skillId]);
-      const ref = db.collection('learningRequests').doc();
-      await ref.set({
-        requesterId: req.user.id,
-        requesterName: req.user.displayName,
-        skillId,
-        skillName: skills.get(skillId).name,
-        description,
-        durationMinutes,
-        status: 'open',
-        createdAt: FieldValue.serverTimestamp(),
-        updatedAt: FieldValue.serverTimestamp(),
-      });
-      res.status(201).json(docToJson(await ref.get()));
-    })
-  );
+  // Alta de solicitud de aprendizaje.
+  router.post(
+    '/',
+    ...auth.member,
+    validate(requestCreateSchema),
+    asyncHandler(async (req, res) => {
+      const { skillId, description, durationMinutes } = req.body;
+      const skills = await assertSkillsExist(db, [skillId]);
+      const ref = db.collection('learningRequests').doc();
+      await ref.set({
+        requesterId: req.user.id,
+        requesterName: req.user.displayName,
+        skillId,
+        skillName: skills.get(skillId).name,
+        description,
+        durationMinutes,
+        status: 'open',
+        createdAt: FieldValue.serverTimestamp(),
+        updatedAt: FieldValue.serverTimestamp(),
+      });
+      res.status(201).json(docToJson(await ref.get()));
+    })
+  );
 
-  // Listado con filtros. Un solo filtro de igualdad en Firestore; el resto en memoria.
-  router.get(
-    '/',
-    ...auth.member,
-    validate(requestListSchema, 'query'),
-    asyncHandler(async (req, res) => {
-      const { status, skillId, mine } = req.query;
-      let query = db.collection('learningRequests');
-      if (status) query = query.where('status', '==', status);
-      const snap = await query.limit(200).get();
-      const items = snap.docs
-        .map(docToJson)
-        .filter((r) => (skillId ? r.skillId === skillId : true))
-        .filter((r) => (mine === 'true' ? r.requesterId === req.user.id : true))
-        .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
-      res.json(items);
-    })
-  );
+  // Listado con filtros. Un solo filtro de igualdad en Firestore; el resto en memoria.
+  router.get(
+    '/',
+    ...auth.member,
+    validate(requestListSchema, 'query'),
+    asyncHandler(async (req, res) => {
+      const { status, skillId, mine } = req.query;
+      let query = db.collection('learningRequests');
+      if (status) query = query.where('status', '==', status);
+      const snap = await query.limit(200).get();
+      const items = snap.docs
+        .map(docToJson)
+        .filter((r) => (skillId ? r.skillId === skillId : true))
+        .filter((r) => (mine === 'true' ? r.requesterId === req.user.id : true))
+        .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+      res.json(items);
+    })
+  );
 
-  router.get(
-    '/:id',
-    ...auth.member,
-    validate(idParams, 'params'),
-    asyncHandler(async (req, res) => {
-      const snap = await db.collection('learningRequests').doc(req.params.id).get();
-      if (!snap.exists) throw new HttpError(404, 'NOT_FOUND', 'Solicitud no encontrada');
-      res.json(docToJson(snap));
-    })
-  );
+  router.get(
+    '/:id',
+    ...auth.member,
+    validate(idParams, 'params'),
+    asyncHandler(async (req, res) => {
+      const snap = await db.collection('learningRequests').doc(req.params.id).get();
+      if (!snap.exists) throw new HttpError(404, 'NOT_FOUND', 'Solicitud no encontrada');
+      res.json(docToJson(snap));
+    })
+  );
 
-  return router;
+  return router;
 };
 ```
 
@@ -1053,21 +1053,21 @@ const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 // Fábrica de la aplicación: recibe sus dependencias (db y verifyToken) para poder probarla.
 function createApp({ db, verifyToken }) {
-  const app = express();
-  const auth = makeAuth({ db, verifyToken });
+  const app = express();
+  const auth = makeAuth({ db, verifyToken });
 
-  app.use(helmet());
-  app.use(cors({ origin: (process.env.CORS_ORIGIN || 'http://localhost:5173').split(',') }));
-  app.use(express.json({ limit: '100kb' }));
+  app.use(helmet());
+  app.use(cors({ origin: (process.env.CORS_ORIGIN || 'http://localhost:5173').split(',') }));
+  app.use(express.json({ limit: '100kb' }));
 
-  app.get('/api/health', (_req, res) => res.json({ status: 'ok', service: 'skillbarter-api' }));
-  app.use('/api/skills', require('./routes/skills')({ db, auth }));
-  app.use('/api/users', require('./routes/users')({ db, auth }));
-  app.use('/api/requests', require('./routes/requests')({ db, auth }));
+  app.get('/api/health', (_req, res) => res.json({ status: 'ok', service: 'skillbarter-api' }));
+  app.use('/api/skills', require('./routes/skills')({ db, auth }));
+  app.use('/api/users', require('./routes/users')({ db, auth }));
+  app.use('/api/requests', require('./routes/requests')({ db, auth }));
 
-  app.use(notFound);
-  app.use(errorHandler);
-  return app;
+  app.use(notFound);
+  app.use(errorHandler);
+  return app;
 }
 
 module.exports = { createApp };
@@ -1097,21 +1097,21 @@ app.listen(port, () => console.log(`SkillBarter API escuchando en http://localho
 
 ```json
 [
-  { "id": "guitarra", "name": "Guitarra", "category": "Música" },
-  { "id": "piano", "name": "Piano", "category": "Música" },
-  { "id": "ingles-conversacional", "name": "Inglés conversacional", "category": "Idiomas" },
-  { "id": "frances-basico", "name": "Francés básico", "category": "Idiomas" },
-  { "id": "javascript", "name": "JavaScript", "category": "Programación" },
-  { "id": "python", "name": "Python", "category": "Programación" },
-  { "id": "sql", "name": "SQL y bases de datos", "category": "Programación" },
-  { "id": "diseno-grafico", "name": "Diseño gráfico", "category": "Diseño" },
-  { "id": "fotografia", "name": "Fotografía", "category": "Arte" },
-  { "id": "dibujo", "name": "Dibujo a lápiz", "category": "Arte" },
-  { "id": "cocina-mexicana", "name": "Cocina mexicana", "category": "Cocina" },
-  { "id": "reposteria", "name": "Repostería", "category": "Cocina" },
-  { "id": "excel", "name": "Excel avanzado", "category": "Productividad" },
-  { "id": "oratoria", "name": "Oratoria", "category": "Comunicación" },
-  { "id": "yoga", "name": "Yoga", "category": "Bienestar" }
+  { "id": "guitarra", "name": "Guitarra", "category": "Música" },
+  { "id": "piano", "name": "Piano", "category": "Música" },
+  { "id": "ingles-conversacional", "name": "Inglés conversacional", "category": "Idiomas" },
+  { "id": "frances-basico", "name": "Francés básico", "category": "Idiomas" },
+  { "id": "javascript", "name": "JavaScript", "category": "Programación" },
+  { "id": "python", "name": "Python", "category": "Programación" },
+  { "id": "sql", "name": "SQL y bases de datos", "category": "Programación" },
+  { "id": "diseno-grafico", "name": "Diseño gráfico", "category": "Diseño" },
+  { "id": "fotografia", "name": "Fotografía", "category": "Arte" },
+  { "id": "dibujo", "name": "Dibujo a lápiz", "category": "Arte" },
+  { "id": "cocina-mexicana", "name": "Cocina mexicana", "category": "Cocina" },
+  { "id": "reposteria", "name": "Repostería", "category": "Cocina" },
+  { "id": "excel", "name": "Excel avanzado", "category": "Productividad" },
+  { "id": "oratoria", "name": "Oratoria", "category": "Comunicación" },
+  { "id": "yoga", "name": "Yoga", "category": "Bienestar" }
 ]
 ```
 
@@ -1126,14 +1126,14 @@ const { FieldValue } = require('firebase-admin/firestore');
 const skills = require('../data/skills.json');
 
 (async () => {
-  const { db } = initFirebase();
-  const batch = db.batch();
-  for (const { id, ...data } of skills) {
-    // merge: true => se puede ejecutar varias veces sin duplicar
-    batch.set(db.collection('skills').doc(id), { ...data, createdAt: FieldValue.serverTimestamp() }, { merge: true });
-  }
-  await batch.commit();
-  console.log(`Catálogo sembrado: ${skills.length} habilidades`);
+  const { db } = initFirebase();
+  const batch = db.batch();
+  for (const { id, ...data } of skills) {
+    // merge: true => se puede ejecutar varias veces sin duplicar
+    batch.set(db.collection('skills').doc(id), { ...data, createdAt: FieldValue.serverTimestamp() }, { merge: true });
+  }
+  await batch.commit();
+  console.log(`Catálogo sembrado: ${skills.length} habilidades`);
 })().catch((e) => { console.error(e); process.exit(1); });
 ```
 
@@ -1152,8 +1152,8 @@ require('dotenv').config({ path: path.resolve(__dirname, '../../../.env'), quiet
 
 const [email, password] = process.argv.slice(2);
 if (!email || !password) {
-  console.error('Uso: npm run -s token -w apps/api -- correo contraseña');
-  process.exit(1);
+  console.error('Uso: npm run -s token -w apps/api -- correo contraseña');
+  process.exit(1);
 }
 
 const emulator = process.env.FIREBASE_AUTH_EMULATOR_HOST;
@@ -1161,19 +1161,19 @@ const base = emulator ? `http://${emulator}/identitytoolkit.googleapis.com` : 'h
 const key = process.env.VITE_FIREBASE_API_KEY || 'demo-api-key';
 
 const call = async (endpoint) => {
-  const res = await fetch(`${base}/v1/accounts:${endpoint}?key=${key}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password, returnSecureToken: true }),
-  });
-  return res.json();
+  const res = await fetch(`${base}/v1/accounts:${endpoint}?key=${key}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password, returnSecureToken: true }),
+  });
+  return res.json();
 };
 
 (async () => {
-  let data = await call('signInWithPassword');
-  if (data.error && emulator) data = await call('signUp'); // solo crea cuentas en el emulador
-  if (data.error) throw new Error(data.error.message);
-  process.stdout.write(data.idToken + '\n');
+  let data = await call('signInWithPassword');
+  if (data.error && emulator) data = await call('signUp'); // solo crea cuentas en el emulador
+  if (data.error) throw new Error(data.error.message);
+  process.stdout.write(data.idToken + '\n');
 })().catch((e) => { console.error(e.message); process.exit(1); });
 ```
 
@@ -1187,8 +1187,8 @@ Necesitan **tres terminales** en la raíz del proyecto:
 npm run emulators
 
 # Terminal 2 — catálogo + API
-npm run seed:skills            # → "Catálogo sembrado: 15 habilidades"
-npm run dev:api                # → "SkillBarter API escuchando en http://localhost:3000"
+npm run seed:skills            # → "Catálogo sembrado: 15 habilidades"
+npm run dev:api                # → "SkillBarter API escuchando en http://localhost:3000"
 ```
 
 Ahora, en una **terminal 3**, prueben cada comportamiento. Las salidas mostradas son las reales:
@@ -1208,26 +1208,26 @@ B=$(npm run -s token -w apps/api -- beto@demo.test Demo1234!)
 
 # 4) Validación en el servidor → 400 con detalle
 curl -s -w " [HTTP %{http_code}]\n" -X POST localhost:3000/api/users/me \
-  -H "Authorization: Bearer $A" -H "Content-Type: application/json" \
-  -d '{"displayName":"A","wantedSkills":["no-existe"]}'
+  -H "Authorization: Bearer $A" -H "Content-Type: application/json" \
+  -d '{"displayName":"A","wantedSkills":["no-existe"]}'
 # {"error":{"code":"VALIDATION_ERROR","message":"Datos de entrada inválidos","details":[{"path":"displayName","message":"Mínimo 2 caracteres"}]}} [HTTP 400]
 
 # 5) Alta de perfil. Observen: se envía "role":"admin" pero el servidor responde role "member"
 curl -s -w " [HTTP %{http_code}]\n" -X POST localhost:3000/api/users/me \
-  -H "Authorization: Bearer $A" -H "Content-Type: application/json" \
-  -d '{"displayName":"Ana Pérez","role":"admin","offeredSkills":[{"skillId":"guitarra","level":"advanced"}],"wantedSkills":["python"],"availability":[{"day":1,"start":"18:00","end":"20:00"}]}'
+  -H "Authorization: Bearer $A" -H "Content-Type: application/json" \
+  -d '{"displayName":"Ana Pérez","role":"admin","offeredSkills":[{"skillId":"guitarra","level":"advanced"}],"wantedSkills":["python"],"availability":[{"day":1,"start":"18:00","end":"20:00"}]}'
 # {"id":"...","displayName":"Ana Pérez",...,"role":"member",...} [HTTP 201]
 
 # 6) Perfil de Beto y búsqueda: ¿quién ofrece guitarra?
 curl -s -X POST localhost:3000/api/users/me -H "Authorization: Bearer $B" \
-  -H "Content-Type: application/json" -d '{"displayName":"Beto Ramírez","wantedSkills":["guitarra"]}' -o /dev/null
+  -H "Content-Type: application/json" -d '{"displayName":"Beto Ramírez","wantedSkills":["guitarra"]}' -o /dev/null
 curl -s "localhost:3000/api/users?offers=guitarra" -H "Authorization: Bearer $B"
-# [{"id":"...","displayName":"Ana Pérez",...,"ratingAvg":null,"ratingCount":0}]   ← sin email ni rol
+# [{"id":"...","displayName":"Ana Pérez",...,"ratingAvg":null,"ratingCount":0}]   ← sin email ni rol
 
 # 7) Solicitud de aprendizaje
 curl -s -w " [HTTP %{http_code}]\n" -X POST localhost:3000/api/requests \
-  -H "Authorization: Bearer $B" -H "Content-Type: application/json" \
-  -d '{"skillId":"guitarra","description":"Quiero aprender acordes básicos","durationMinutes":60}'
+  -H "Authorization: Bearer $B" -H "Content-Type: application/json" \
+  -d '{"skillId":"guitarra","description":"Quiero aprender acordes básicos","durationMinutes":60}'
 # {"id":"...","requesterName":"Beto Ramírez","skillName":"Guitarra",...,"status":"open",...} [HTTP 201]
 
 # 8) Listado con filtro
@@ -1259,9 +1259,9 @@ const { db } = initFirebase();
 // Doble de verifyIdToken: el token de prueba tiene la forma "test:<uid>".
 // Así probamos la lógica de la API sin depender del emulador de Auth.
 const verifyToken = async (token) => {
-  const [prefix, uid] = token.split(':');
-  if (prefix !== 'test' || !uid) throw new Error('invalid token');
-  return { uid, email: `${uid}@demo.test` };
+  const [prefix, uid] = token.split(':');
+  if (prefix !== 'test' || !uid) throw new Error('invalid token');
+  return { uid, email: `${uid}@demo.test` };
 };
 
 const app = createApp({ db, verifyToken });
@@ -1270,36 +1270,36 @@ const as = (uid) => ({ Authorization: `Bearer test:${uid}` });
 
 // Borra TODO el contenido del emulador entre pruebas (endpoint oficial del emulador).
 async function clearFirestore() {
-  const host = process.env.FIRESTORE_EMULATOR_HOST;
-  const res = await fetch(`http://${host}/emulator/v1/projects/demo-skillbarter/databases/(default)/documents`, { method: 'DELETE' });
-  if (!res.ok) throw new Error('No se pudo limpiar el emulador de Firestore');
+  const host = process.env.FIRESTORE_EMULATOR_HOST;
+  const res = await fetch(`http://${host}/emulator/v1/projects/demo-skillbarter/databases/(default)/documents`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('No se pudo limpiar el emulador de Firestore');
 }
 
 async function seedSkills() {
-  const skills = [
-    ['guitarra', 'Guitarra', 'Música'],
-    ['python', 'Python', 'Programación'],
-    ['ingles-conversacional', 'Inglés conversacional', 'Idiomas'],
-  ];
-  const batch = db.batch();
-  for (const [id, name, category] of skills) batch.set(db.collection('skills').doc(id), { name, category });
-  await batch.commit();
+  const skills = [
+    ['guitarra', 'Guitarra', 'Música'],
+    ['python', 'Python', 'Programación'],
+    ['ingles-conversacional', 'Inglés conversacional', 'Idiomas'],
+  ];
+  const batch = db.batch();
+  for (const [id, name, category] of skills) batch.set(db.collection('skills').doc(id), { name, category });
+  await batch.commit();
 }
 
 const baseProfile = (overrides = {}) => ({
-  displayName: 'Usuario Demo',
-  bio: 'Perfil de prueba',
-  offeredSkills: [],
-  wantedSkills: [],
-  availability: [],
-  ...overrides,
+  displayName: 'Usuario Demo',
+  bio: 'Perfil de prueba',
+  offeredSkills: [],
+  wantedSkills: [],
+  availability: [],
+  ...overrides,
 });
 
 // Crea un perfil vía API y devuelve el cuerpo de la respuesta.
 async function registerUser(uid, overrides = {}) {
-  const res = await api().post('/api/users/me').set(as(uid)).send(baseProfile(overrides));
-  if (res.status !== 201) throw new Error(`registerUser(${uid}) falló: ${res.status} ${JSON.stringify(res.body)}`);
-  return res.body;
+  const res = await api().post('/api/users/me').set(as(uid)).send(baseProfile(overrides));
+  if (res.status !== 201) throw new Error(`registerUser(${uid}) falló: ${res.status} ${JSON.stringify(res.body)}`);
+  return res.body;
 }
 
 module.exports = { db, api, as, clearFirestore, seedSkills, baseProfile, registerUser };
@@ -1314,95 +1314,95 @@ Autenticación, perfiles y búsqueda (9 pruebas):
 const { db, api, as, clearFirestore, seedSkills, registerUser } = require('./helpers');
 
 beforeEach(async () => {
-  await clearFirestore();
-  await seedSkills();
+  await clearFirestore();
+  await seedSkills();
 });
 
 describe('Autenticación', () => {
-  test('GET /api/health responde sin token', async () => {
-    const res = await api().get('/api/health');
-    expect(res.status).toBe(200);
-    expect(res.body.status).toBe('ok');
-  });
+  test('GET /api/health responde sin token', async () => {
+    const res = await api().get('/api/health');
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe('ok');
+  });
 
-  test('rechaza peticiones sin token con 401', async () => {
-    const res = await api().get('/api/skills');
-    expect(res.status).toBe(401);
-    expect(res.body.error.code).toBe('UNAUTHENTICATED');
-  });
+  test('rechaza peticiones sin token con 401', async () => {
+    const res = await api().get('/api/skills');
+    expect(res.status).toBe(401);
+    expect(res.body.error.code).toBe('UNAUTHENTICATED');
+  });
 
-  test('rechaza un token inválido con 401', async () => {
-    const res = await api().get('/api/skills').set({ Authorization: 'Bearer basura' });
-    expect(res.status).toBe(401);
-    expect(res.body.error.code).toBe('INVALID_TOKEN');
-  });
+  test('rechaza un token inválido con 401', async () => {
+    const res = await api().get('/api/skills').set({ Authorization: 'Bearer basura' });
+    expect(res.status).toBe(401);
+    expect(res.body.error.code).toBe('INVALID_TOKEN');
+  });
 });
 
 describe('Perfiles', () => {
-  test('crea el perfil y persiste en Firestore; el rol siempre es member', async () => {
-    const res = await api()
-      .post('/api/users/me')
-      .set(as('ana'))
-      .send({
-        displayName: 'Ana Pérez',
-        role: 'admin', // intento de escalar privilegios: debe ignorarse
-        offeredSkills: [{ skillId: 'guitarra', level: 'advanced' }],
-        wantedSkills: ['python'],
-        availability: [{ day: 1, start: '18:00', end: '20:00' }],
-      });
-    expect(res.status).toBe(201);
-    expect(res.body.role).toBe('member');
+  test('crea el perfil y persiste en Firestore; el rol siempre es member', async () => {
+    const res = await api()
+      .post('/api/users/me')
+      .set(as('ana'))
+      .send({
+        displayName: 'Ana Pérez',
+        role: 'admin', // intento de escalar privilegios: debe ignorarse
+        offeredSkills: [{ skillId: 'guitarra', level: 'advanced' }],
+        wantedSkills: ['python'],
+        availability: [{ day: 1, start: '18:00', end: '20:00' }],
+      });
+    expect(res.status).toBe(201);
+    expect(res.body.role).toBe('member');
 
-    const stored = (await db.collection('users').doc('ana').get()).data();
-    expect(stored.role).toBe('member');
-    expect(stored.offeredSkillIds).toEqual(['guitarra']);
-  });
+    const stored = (await db.collection('users').doc('ana').get()).data();
+    expect(stored.role).toBe('member');
+    expect(stored.offeredSkillIds).toEqual(['guitarra']);
+  });
 
-  test('valida entradas en el servidor: nombre corto y horario invertido', async () => {
-    const res = await api()
-      .post('/api/users/me')
-      .set(as('ana'))
-      .send({ displayName: 'A', availability: [{ day: 1, start: '20:00', end: '18:00' }] });
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('VALIDATION_ERROR');
-    expect(res.body.error.details.length).toBeGreaterThanOrEqual(2);
-  });
+  test('valida entradas en el servidor: nombre corto y horario invertido', async () => {
+    const res = await api()
+      .post('/api/users/me')
+      .set(as('ana'))
+      .send({ displayName: 'A', availability: [{ day: 1, start: '20:00', end: '18:00' }] });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+    expect(res.body.error.details.length).toBeGreaterThanOrEqual(2);
+  });
 
-  test('rechaza habilidades que no existen en el catálogo', async () => {
-    const res = await api()
-      .post('/api/users/me')
-      .set(as('ana'))
-      .send({ displayName: 'Ana Pérez', wantedSkills: ['no-existe'] });
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('UNKNOWN_SKILL');
-  });
+  test('rechaza habilidades que no existen en el catálogo', async () => {
+    const res = await api()
+      .post('/api/users/me')
+      .set(as('ana'))
+      .send({ displayName: 'Ana Pérez', wantedSkills: ['no-existe'] });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('UNKNOWN_SKILL');
+  });
 
-  test('no permite crear dos veces el mismo perfil (409)', async () => {
-    await registerUser('ana', { displayName: 'Ana Pérez' });
-    const res = await api().post('/api/users/me').set(as('ana')).send({ displayName: 'Otra Vez' });
-    expect(res.status).toBe(409);
-    expect(res.body.error.code).toBe('PROFILE_EXISTS');
-  });
+  test('no permite crear dos veces el mismo perfil (409)', async () => {
+    await registerUser('ana', { displayName: 'Ana Pérez' });
+    const res = await api().post('/api/users/me').set(as('ana')).send({ displayName: 'Otra Vez' });
+    expect(res.status).toBe(409);
+    expect(res.body.error.code).toBe('PROFILE_EXISTS');
+  });
 
-  test('GET /api/users/me devuelve 404 si aún no hay perfil', async () => {
-    const res = await api().get('/api/users/me').set(as('nuevo'));
-    expect(res.status).toBe(404);
-    expect(res.body.error.code).toBe('PROFILE_NOT_FOUND');
-  });
+  test('GET /api/users/me devuelve 404 si aún no hay perfil', async () => {
+    const res = await api().get('/api/users/me').set(as('nuevo'));
+    expect(res.status).toBe(404);
+    expect(res.body.error.code).toBe('PROFILE_NOT_FOUND');
+  });
 });
 
 describe('Búsqueda de miembros', () => {
-  test('encuentra a quien ofrece la habilidad, excluye al solicitante y no expone datos privados', async () => {
-    await registerUser('ana', { displayName: 'Ana', offeredSkills: [{ skillId: 'guitarra', level: 'advanced' }] });
-    await registerUser('beto', { displayName: 'Beto', offeredSkills: [{ skillId: 'python', level: 'beginner' }] });
-    await registerUser('carla', { displayName: 'Carla', offeredSkills: [{ skillId: 'guitarra', level: 'beginner' }] });
+  test('encuentra a quien ofrece la habilidad, excluye al solicitante y no expone datos privados', async () => {
+    await registerUser('ana', { displayName: 'Ana', offeredSkills: [{ skillId: 'guitarra', level: 'advanced' }] });
+    await registerUser('beto', { displayName: 'Beto', offeredSkills: [{ skillId: 'python', level: 'beginner' }] });
+    await registerUser('carla', { displayName: 'Carla', offeredSkills: [{ skillId: 'guitarra', level: 'beginner' }] });
 
-    const res = await api().get('/api/users?offers=guitarra').set(as('carla'));
-    expect(res.status).toBe(200);
-    expect(res.body.map((u) => u.displayName)).toEqual(['Ana']);
-    expect(res.body[0].email).toBeUndefined();
-    expect(res.body[0].role).toBeUndefined();
-  });
+    const res = await api().get('/api/users?offers=guitarra').set(as('carla'));
+    expect(res.status).toBe(200);
+    expect(res.body.map((u) => u.displayName)).toEqual(['Ana']);
+    expect(res.body[0].email).toBeUndefined();
+    expect(res.body[0].role).toBeUndefined();
+  });
 });
 ```
 
@@ -1415,70 +1415,70 @@ Solicitudes y parámetros de ruta (6 pruebas):
 const { db, api, as, clearFirestore, seedSkills, registerUser } = require('./helpers');
 
 beforeEach(async () => {
-  await clearFirestore();
-  await seedSkills();
-  await registerUser('ana', { displayName: 'Ana' });
+  await clearFirestore();
+  await seedSkills();
+  await registerUser('ana', { displayName: 'Ana' });
 });
 
 describe('Solicitudes de aprendizaje', () => {
-  test('crea una solicitud persistente con estado open', async () => {
-    const res = await api()
-      .post('/api/requests')
-      .set(as('ana'))
-      .send({ skillId: 'python', description: 'Quiero aprender lo básico de Python', durationMinutes: 60 });
-    expect(res.status).toBe(201);
-    expect(res.body.status).toBe('open');
-    expect(res.body.skillName).toBe('Python');
+  test('crea una solicitud persistente con estado open', async () => {
+    const res = await api()
+      .post('/api/requests')
+      .set(as('ana'))
+      .send({ skillId: 'python', description: 'Quiero aprender lo básico de Python', durationMinutes: 60 });
+    expect(res.status).toBe(201);
+    expect(res.body.status).toBe('open');
+    expect(res.body.skillName).toBe('Python');
 
-    const stored = await db.collection('learningRequests').doc(res.body.id).get();
-    expect(stored.exists).toBe(true);
-    expect(stored.data().requesterId).toBe('ana');
-  });
+    const stored = await db.collection('learningRequests').doc(res.body.id).get();
+    expect(stored.exists).toBe(true);
+    expect(stored.data().requesterId).toBe('ana');
+  });
 
-  test('lista solicitudes y filtra por habilidad y por "mías"', async () => {
-    await registerUser('beto', { displayName: 'Beto' });
-    const base = { description: 'Descripción suficientemente larga', durationMinutes: 60 };
-    await api().post('/api/requests').set(as('ana')).send({ ...base, skillId: 'python' });
-    await api().post('/api/requests').set(as('beto')).send({ ...base, skillId: 'guitarra' });
+  test('lista solicitudes y filtra por habilidad y por "mías"', async () => {
+    await registerUser('beto', { displayName: 'Beto' });
+    const base = { description: 'Descripción suficientemente larga', durationMinutes: 60 };
+    await api().post('/api/requests').set(as('ana')).send({ ...base, skillId: 'python' });
+    await api().post('/api/requests').set(as('beto')).send({ ...base, skillId: 'guitarra' });
 
-    const all = await api().get('/api/requests?status=open').set(as('ana'));
-    expect(all.body).toHaveLength(2);
-    const bySkill = await api().get('/api/requests?skillId=guitarra').set(as('ana'));
-    expect(bySkill.body.map((r) => r.requesterName)).toEqual(['Beto']);
-    const mine = await api().get('/api/requests?mine=true').set(as('ana'));
-    expect(mine.body.map((r) => r.requesterName)).toEqual(['Ana']);
-  });
+    const all = await api().get('/api/requests?status=open').set(as('ana'));
+    expect(all.body).toHaveLength(2);
+    const bySkill = await api().get('/api/requests?skillId=guitarra').set(as('ana'));
+    expect(bySkill.body.map((r) => r.requesterName)).toEqual(['Beto']);
+    const mine = await api().get('/api/requests?mine=true').set(as('ana'));
+    expect(mine.body.map((r) => r.requesterName)).toEqual(['Ana']);
+  });
 
-  test('valida descripción corta y duración no permitida', async () => {
-    const res = await api()
-      .post('/api/requests')
-      .set(as('ana'))
-      .send({ skillId: 'python', description: 'corta', durationMinutes: 45 });
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('VALIDATION_ERROR');
-  });
+  test('valida descripción corta y duración no permitida', async () => {
+    const res = await api()
+      .post('/api/requests')
+      .set(as('ana'))
+      .send({ skillId: 'python', description: 'corta', durationMinutes: 45 });
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
 
-  test('exige perfil: un usuario autenticado sin perfil recibe 403', async () => {
-    const res = await api()
-      .post('/api/requests')
-      .set(as('fantasma'))
-      .send({ skillId: 'python', description: 'Descripción suficientemente larga', durationMinutes: 60 });
-    expect(res.status).toBe(403);
-    expect(res.body.error.code).toBe('PROFILE_REQUIRED');
-  });
+  test('exige perfil: un usuario autenticado sin perfil recibe 403', async () => {
+    const res = await api()
+      .post('/api/requests')
+      .set(as('fantasma'))
+      .send({ skillId: 'python', description: 'Descripción suficientemente larga', durationMinutes: 60 });
+    expect(res.status).toBe(403);
+    expect(res.body.error.code).toBe('PROFILE_REQUIRED');
+  });
 });
 
 describe('Parámetros de ruta', () => {
-  test('rechaza identificadores con caracteres peligrosos (400, no 500)', async () => {
-    const res = await api().get('/api/requests/a%2Fb').set(as('ana'));
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe('VALIDATION_ERROR');
-  });
+  test('rechaza identificadores con caracteres peligrosos (400, no 500)', async () => {
+    const res = await api().get('/api/requests/a%2Fb').set(as('ana'));
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe('VALIDATION_ERROR');
+  });
 
-  test('devuelve 404 para una solicitud que no existe', async () => {
-    const res = await api().get('/api/requests/noexiste123').set(as('ana'));
-    expect(res.status).toBe(404);
-  });
+  test('devuelve 404 para una solicitud que no existe', async () => {
+    const res = await api().get('/api/requests/noexiste123').set(as('ana'));
+    expect(res.status).toBe(404);
+  });
 });
 ```
 
@@ -1496,7 +1496,7 @@ PASS tests/api/users.test.js
 PASS tests/api/requests.test.js
 
 Test Suites: 2 passed, 2 total
-Tests:       15 passed, 15 total
+Tests:       15 passed, 15 total
 ```
 
 > Si `npm run emulators` está corriendo en otra terminal, `npm test` fallará por el puerto 8080 ocupado. O bien cierren el emulador, o ejecuten directamente: `FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 npx jest --runInBand`.
@@ -1533,25 +1533,25 @@ El PDF deja libre el frontend. Usamos **React 19 + Vite 8 + React Router 7**. El
 
 ```json
 {
-  "name": "@skillbarter/web",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "firebase": "^13.4.0",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.6"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^6.3.0",
-    "vite": "^8.3.8"
-  }
+  "name": "@skillbarter/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "firebase": "^13.4.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.6"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "vite": "^8.3.8"
+  }
 }
 ```
 
@@ -1564,9 +1564,9 @@ import react from '@vitejs/plugin-react';
 
 // envDir apunta a la raíz del monorepo para compartir un único archivo .env
 export default defineConfig({
-  plugins: [react()],
-  envDir: '../../',
-  server: { port: 5173 },
+  plugins: [react()],
+  envDir: '../../',
+  server: { port: 5173 },
 });
 ```
 
@@ -1578,21 +1578,21 @@ export default defineConfig({
 ```html
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SkillBarter · Intercambio de habilidades</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillBarter · Intercambio de habilidades</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
 ```
 
 
 ```bash
-npm install          # en la raíz (si aún no lo hicieron)
+npm install          # en la raíz (si aún no lo hicieron)
 ```
 
 ### 7.2 Firebase, cliente HTTP y sesión [P4]
@@ -1604,17 +1604,17 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 
 const app = initializeApp({
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 });
 
 export const auth = getAuth(app);
 
 // En desarrollo local usamos el emulador de Auth para no crear usuarios reales.
 if (import.meta.env.VITE_USE_EMULATORS === 'true') {
-  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099', { disableWarnings: true });
 }
 ```
 
@@ -1630,24 +1630,24 @@ const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // Cliente HTTP: adjunta el ID token de Firebase y normaliza los errores de la API.
 export async function api(path, { method = 'GET', body } = {}) {
-  const token = auth.currentUser ? await auth.currentUser.getIdToken() : null;
-  const res = await fetch(`${API_URL}${path}`, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const data = await res.json().catch(() => null);
-  if (!res.ok) {
-    const err = new Error(data?.error?.message || 'No se pudo conectar con el servidor');
-    err.status = res.status;
-    err.code = data?.error?.code;
-    err.details = data?.error?.details;
-    throw err;
-  }
-  return data;
+  const token = auth.currentUser ? await auth.currentUser.getIdToken() : null;
+  const res = await fetch(`${API_URL}${path}`, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    const err = new Error(data?.error?.message || 'No se pudo conectar con el servidor');
+    err.status = res.status;
+    err.code = data?.error?.code;
+    err.details = data?.error?.details;
+    throw err;
+  }
+  return data;
 }
 ```
 
@@ -1666,41 +1666,41 @@ const AuthContext = createContext(null);
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const refreshProfile = useCallback(async () => {
-    try {
-      setProfile(await api('/api/users/me'));
-    } catch (e) {
-      if (e.status === 404) setProfile(null); // usuario autenticado sin perfil todavía
-      else throw e;
-    }
-  }, []);
+  const refreshProfile = useCallback(async () => {
+    try {
+      setProfile(await api('/api/users/me'));
+    } catch (e) {
+      if (e.status === 404) setProfile(null); // usuario autenticado sin perfil todavía
+      else throw e;
+    }
+  }, []);
 
-  useEffect(
-    () =>
-      onAuthStateChanged(auth, async (u) => {
-        setLoading(true); // evita que las rutas privadas redirijan mientras se carga el perfil
-        setUser(u);
-        if (u) {
-          try { await refreshProfile(); } catch { setProfile(null); }
-        } else {
-          setProfile(null);
-        }
-        setLoading(false);
-      }),
-    [refreshProfile]
-  );
+  useEffect(
+    () =>
+      onAuthStateChanged(auth, async (u) => {
+        setLoading(true); // evita que las rutas privadas redirijan mientras se carga el perfil
+        setUser(u);
+        if (u) {
+          try { await refreshProfile(); } catch { setProfile(null); }
+        } else {
+          setProfile(null);
+        }
+        setLoading(false);
+      }),
+    [refreshProfile]
+  );
 
-  const logout = () => signOut(auth);
+  const logout = () => signOut(auth);
 
-  return (
-    <AuthContext.Provider value={{ user, profile, loading, refreshProfile, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return (
+    <AuthContext.Provider value={{ user, profile, loading, refreshProfile, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 ```
 
@@ -1713,19 +1713,19 @@ import { api } from './api';
 
 export const DAYS = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 export const STATUS = {
-  open: 'Abierta', matched: 'Asignada', fulfilled: 'Cumplida', cancelled: 'Cancelada',
-  pending: 'Pendiente', accepted: 'Aceptada', rejected: 'Rechazada', completed: 'Completada',
+  open: 'Abierta', matched: 'Asignada', fulfilled: 'Cumplida', cancelled: 'Cancelada',
+  pending: 'Pendiente', accepted: 'Aceptada', rejected: 'Rechazada', completed: 'Completada',
 };
 export const LEVELS = { beginner: 'Básico', intermediate: 'Intermedio', advanced: 'Avanzado' };
 
 // Carga el catálogo de habilidades una vez por componente.
 export function useSkills() {
-  const [skills, setSkills] = useState([]);
-  useEffect(() => {
-    api('/api/skills').then(setSkills).catch(() => setSkills([]));
-  }, []);
-  const byId = Object.fromEntries(skills.map((s) => [s.id, s]));
-  return { skills, byId };
+  const [skills, setSkills] = useState([]);
+  useEffect(() => {
+    api('/api/skills').then(setSkills).catch(() => setSkills([]));
+  }, []);
+  const byId = Object.fromEntries(skills.map((s) => [s.id, s]));
+  return { skills, byId };
 }
 ```
 
@@ -1734,19 +1734,19 @@ export function useSkills() {
 
 ```jsx
 export default function ErrorBox({ error }) {
-  if (!error) return null;
-  return (
-    <div className="error" role="alert">
-      <strong>{error.message}</strong>
-      {error.details?.length > 0 && (
-        <ul>
-          {error.details.map((d, i) => (
-            <li key={i}>{d.path ? `${d.path}: ` : ''}{d.message}</li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+  if (!error) return null;
+  return (
+    <div className="error" role="alert">
+      <strong>{error.message}</strong>
+      {error.details?.length > 0 && (
+        <ul>
+          {error.details.map((d, i) => (
+            <li key={i}>{d.path ? `${d.path}: ` : ''}{d.message}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
 ```
 
@@ -1764,13 +1764,13 @@ import { AuthProvider } from './AuthContext';
 import './styles.css';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </BrowserRouter>
+  </StrictMode>
 );
 ```
 
@@ -1789,43 +1789,43 @@ import Requests from './pages/Requests';
 
 // Protege rutas: exige sesión y, además, perfil creado.
 function Private({ children }) {
-  const { user, profile, loading } = useAuth();
-  if (loading) return <p className="center">Cargando…</p>;
-  if (!user) return <Navigate to="/login" replace />;
-  if (!profile && window.location.pathname !== '/perfil') return <Navigate to="/perfil" replace />;
-  return children;
+  const { user, profile, loading } = useAuth();
+  if (loading) return <p className="center">Cargando…</p>;
+  if (!user) return <Navigate to="/login" replace />;
+  if (!profile && window.location.pathname !== '/perfil') return <Navigate to="/perfil" replace />;
+  return children;
 }
 
 export default function App() {
-  const { user, profile, logout } = useAuth();
-  return (
-    <>
-      <header className="topbar">
-        <span className="brand">⏳ SkillBarter</span>
-        {user && profile && (
-          <nav>
-            <NavLink to="/buscar">Buscar</NavLink>
-            <NavLink to="/solicitudes">Solicitudes</NavLink>
-            <NavLink to="/perfil">Mi perfil</NavLink>
-          </nav>
-        )}
-        {user && (
-          <button className="link" onClick={logout}>
-            Salir ({profile?.displayName || user.email})
-          </button>
-        )}
-      </header>
-      <main>
-        <Routes>
-          <Route path="/login" element={user ? <Navigate to="/buscar" replace /> : <Login />} />
-          <Route path="/perfil" element={<Private><Profile /></Private>} />
-          <Route path="/buscar" element={<Private><Search /></Private>} />
-          <Route path="/solicitudes" element={<Private><Requests /></Private>} />
-          <Route path="*" element={<Navigate to="/buscar" replace />} />
-        </Routes>
-      </main>
-    </>
-  );
+  const { user, profile, logout } = useAuth();
+  return (
+    <>
+      <header className="topbar">
+        <span className="brand">⏳ SkillBarter</span>
+        {user && profile && (
+          <nav>
+            <NavLink to="/buscar">Buscar</NavLink>
+            <NavLink to="/solicitudes">Solicitudes</NavLink>
+            <NavLink to="/perfil">Mi perfil</NavLink>
+          </nav>
+        )}
+        {user && (
+          <button className="link" onClick={logout}>
+            Salir ({profile?.displayName || user.email})
+          </button>
+        )}
+      </header>
+      <main>
+        <Routes>
+          <Route path="/login" element={user ? <Navigate to="/buscar" replace /> : <Login />} />
+          <Route path="/perfil" element={<Private><Profile /></Private>} />
+          <Route path="/buscar" element={<Private><Search /></Private>} />
+          <Route path="/solicitudes" element={<Private><Requests /></Private>} />
+          <Route path="*" element={<Navigate to="/buscar" replace />} />
+        </Routes>
+      </main>
+    </>
+  );
 }
 ```
 
@@ -1841,39 +1841,39 @@ import { auth } from '../firebase';
 import ErrorBox from '../components/ErrorBox';
 
 export default function Login() {
-  const [mode, setMode] = useState('login');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [mode, setMode] = useState('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
-  async function submit(e) {
-    e.preventDefault();
-    setError(null);
-    try {
-      if (mode === 'login') await signInWithEmailAndPassword(auth, email, password);
-      else await createUserWithEmailAndPassword(auth, email, password);
-    } catch (err) {
-      setError(new Error(err.message.replace('Firebase: ', '')));
-    }
-  }
+  async function submit(e) {
+    e.preventDefault();
+    setError(null);
+    try {
+      if (mode === 'login') await signInWithEmailAndPassword(auth, email, password);
+      else await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setError(new Error(err.message.replace('Firebase: ', '')));
+    }
+  }
 
-  return (
-    <form className="card narrow" onSubmit={submit}>
-      <h1>{mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta'}</h1>
-      <p className="muted">Intercambia habilidades, no dinero: enseña una hora y gana una hora.</p>
-      <label>Correo
-        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-      </label>
-      <label>Contraseña
-        <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
-      </label>
-      <ErrorBox error={error} />
-      <button type="submit">{mode === 'login' ? 'Entrar' : 'Registrarme'}</button>
-      <button type="button" className="link" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
-        {mode === 'login' ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión'}
-      </button>
-    </form>
-  );
+  return (
+    <form className="card narrow" onSubmit={submit}>
+      <h1>{mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta'}</h1>
+      <p className="muted">Intercambia habilidades, no dinero: enseña una hora y gana una hora.</p>
+      <label>Correo
+        <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+      </label>
+      <label>Contraseña
+        <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+      </label>
+      <ErrorBox error={error} />
+      <button type="submit">{mode === 'login' ? 'Entrar' : 'Registrarme'}</button>
+      <button type="button" className="link" onClick={() => setMode(mode === 'login' ? 'register' : 'login')}>
+        {mode === 'login' ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión'}
+      </button>
+    </form>
+  );
 }
 ```
 
@@ -1891,120 +1891,120 @@ import { DAYS, LEVELS, useSkills } from '../hooks';
 import ErrorBox from '../components/ErrorBox';
 
 export default function Profile() {
-  const { profile, refreshProfile } = useAuth();
-  const { skills, byId } = useSkills();
-  const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [offered, setOffered] = useState([]);
-  const [wanted, setWanted] = useState([]);
-  const [availability, setAvailability] = useState([]);
-  const [newOffer, setNewOffer] = useState({ skillId: '', level: 'intermediate' });
-  const [newSlot, setNewSlot] = useState({ day: 1, start: '18:00', end: '20:00' });
-  const [error, setError] = useState(null);
-  const [saved, setSaved] = useState(false);
+  const { profile, refreshProfile } = useAuth();
+  const { skills, byId } = useSkills();
+  const navigate = useNavigate();
+  const [displayName, setDisplayName] = useState('');
+  const [bio, setBio] = useState('');
+  const [offered, setOffered] = useState([]);
+  const [wanted, setWanted] = useState([]);
+  const [availability, setAvailability] = useState([]);
+  const [newOffer, setNewOffer] = useState({ skillId: '', level: 'intermediate' });
+  const [newSlot, setNewSlot] = useState({ day: 1, start: '18:00', end: '20:00' });
+  const [error, setError] = useState(null);
+  const [saved, setSaved] = useState(false);
 
-  useEffect(() => {
-    if (profile) {
-      setDisplayName(profile.displayName);
-      setBio(profile.bio || '');
-      setOffered(profile.offeredSkills || []);
-      setWanted(profile.wantedSkills || []);
-      setAvailability(profile.availability || []);
-    }
-  }, [profile]);
+  useEffect(() => {
+    if (profile) {
+      setDisplayName(profile.displayName);
+      setBio(profile.bio || '');
+      setOffered(profile.offeredSkills || []);
+      setWanted(profile.wantedSkills || []);
+      setAvailability(profile.availability || []);
+    }
+  }, [profile]);
 
-  const addOffer = () => {
-    if (!newOffer.skillId || offered.some((o) => o.skillId === newOffer.skillId)) return;
-    setOffered([...offered, newOffer]);
-  };
-  const toggleWanted = (id) =>
-    setWanted(wanted.includes(id) ? wanted.filter((w) => w !== id) : [...wanted, id]);
+  const addOffer = () => {
+    if (!newOffer.skillId || offered.some((o) => o.skillId === newOffer.skillId)) return;
+    setOffered([...offered, newOffer]);
+  };
+  const toggleWanted = (id) =>
+    setWanted(wanted.includes(id) ? wanted.filter((w) => w !== id) : [...wanted, id]);
 
-  async function save(e) {
-    e.preventDefault();
-    setError(null);
-    setSaved(false);
-    try {
-      const body = { displayName, bio, offeredSkills: offered, wantedSkills: wanted, availability };
-      await api('/api/users/me', { method: profile ? 'PUT' : 'POST', body });
-      await refreshProfile();
-      setSaved(true);
-      if (!profile) navigate('/buscar');
-    } catch (err) {
-      setError(err);
-    }
-  }
+  async function save(e) {
+    e.preventDefault();
+    setError(null);
+    setSaved(false);
+    try {
+      const body = { displayName, bio, offeredSkills: offered, wantedSkills: wanted, availability };
+      await api('/api/users/me', { method: profile ? 'PUT' : 'POST', body });
+      await refreshProfile();
+      setSaved(true);
+      if (!profile) navigate('/buscar');
+    } catch (err) {
+      setError(err);
+    }
+  }
 
-  return (
-    <form className="card" onSubmit={save}>
-      <h1>{profile ? 'Mi perfil' : 'Completa tu perfil'}</h1>
-      <label>Nombre público
-        <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} required />
-      </label>
-      <label>Sobre mí
-        <textarea rows={3} value={bio} onChange={(e) => setBio(e.target.value)} />
-      </label>
+  return (
+    <form className="card" onSubmit={save}>
+      <h1>{profile ? 'Mi perfil' : 'Completa tu perfil'}</h1>
+      <label>Nombre público
+        <input value={displayName} onChange={(e) => setDisplayName(e.target.value)} required />
+      </label>
+      <label>Sobre mí
+        <textarea rows={3} value={bio} onChange={(e) => setBio(e.target.value)} />
+      </label>
 
-      <fieldset>
-        <legend>Habilidades que ofrezco</legend>
-        <div className="row">
-          <select value={newOffer.skillId} onChange={(e) => setNewOffer({ ...newOffer, skillId: e.target.value })}>
-            <option value="">Elige habilidad…</option>
-            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-          <select value={newOffer.level} onChange={(e) => setNewOffer({ ...newOffer, level: e.target.value })}>
-            {Object.entries(LEVELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
-          </select>
-          <button type="button" onClick={addOffer}>Añadir</button>
-        </div>
-        <ul className="chips">
-          {offered.map((o) => (
-            <li key={o.skillId}>
-              {byId[o.skillId]?.name || o.skillId} · {LEVELS[o.level]}
-              <button type="button" className="x" onClick={() => setOffered(offered.filter((x) => x.skillId !== o.skillId))}>×</button>
-            </li>
-          ))}
-        </ul>
-      </fieldset>
+      <fieldset>
+        <legend>Habilidades que ofrezco</legend>
+        <div className="row">
+          <select value={newOffer.skillId} onChange={(e) => setNewOffer({ ...newOffer, skillId: e.target.value })}>
+            <option value="">Elige habilidad…</option>
+            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+          <select value={newOffer.level} onChange={(e) => setNewOffer({ ...newOffer, level: e.target.value })}>
+            {Object.entries(LEVELS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+          </select>
+          <button type="button" onClick={addOffer}>Añadir</button>
+        </div>
+        <ul className="chips">
+          {offered.map((o) => (
+            <li key={o.skillId}>
+              {byId[o.skillId]?.name || o.skillId} · {LEVELS[o.level]}
+              <button type="button" className="x" onClick={() => setOffered(offered.filter((x) => x.skillId !== o.skillId))}>×</button>
+            </li>
+          ))}
+        </ul>
+      </fieldset>
 
-      <fieldset>
-        <legend>Temas que quiero aprender</legend>
-        <div className="chips">
-          {skills.map((s) => (
-            <label key={s.id} className={`chip ${wanted.includes(s.id) ? 'on' : ''}`}>
-              <input type="checkbox" checked={wanted.includes(s.id)} onChange={() => toggleWanted(s.id)} />
-              {s.name}
-            </label>
-          ))}
-        </div>
-      </fieldset>
+      <fieldset>
+        <legend>Temas que quiero aprender</legend>
+        <div className="chips">
+          {skills.map((s) => (
+            <label key={s.id} className={`chip ${wanted.includes(s.id) ? 'on' : ''}`}>
+              <input type="checkbox" checked={wanted.includes(s.id)} onChange={() => toggleWanted(s.id)} />
+              {s.name}
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
-      <fieldset>
-        <legend>Disponibilidad semanal</legend>
-        <div className="row">
-          <select value={newSlot.day} onChange={(e) => setNewSlot({ ...newSlot, day: Number(e.target.value) })}>
-            {DAYS.map((d, i) => <option key={d} value={i}>{d}</option>)}
-          </select>
-          <input type="time" value={newSlot.start} onChange={(e) => setNewSlot({ ...newSlot, start: e.target.value })} />
-          <input type="time" value={newSlot.end} onChange={(e) => setNewSlot({ ...newSlot, end: e.target.value })} />
-          <button type="button" onClick={() => setAvailability([...availability, newSlot])}>Añadir</button>
-        </div>
-        <ul className="chips">
-          {availability.map((s, i) => (
-            <li key={i}>
-              {DAYS[s.day]} {s.start}–{s.end}
-              <button type="button" className="x" onClick={() => setAvailability(availability.filter((_, j) => j !== i))}>×</button>
-            </li>
-          ))}
-        </ul>
-      </fieldset>
+      <fieldset>
+        <legend>Disponibilidad semanal</legend>
+        <div className="row">
+          <select value={newSlot.day} onChange={(e) => setNewSlot({ ...newSlot, day: Number(e.target.value) })}>
+            {DAYS.map((d, i) => <option key={d} value={i}>{d}</option>)}
+          </select>
+          <input type="time" value={newSlot.start} onChange={(e) => setNewSlot({ ...newSlot, start: e.target.value })} />
+          <input type="time" value={newSlot.end} onChange={(e) => setNewSlot({ ...newSlot, end: e.target.value })} />
+          <button type="button" onClick={() => setAvailability([...availability, newSlot])}>Añadir</button>
+        </div>
+        <ul className="chips">
+          {availability.map((s, i) => (
+            <li key={i}>
+              {DAYS[s.day]} {s.start}–{s.end}
+              <button type="button" className="x" onClick={() => setAvailability(availability.filter((_, j) => j !== i))}>×</button>
+            </li>
+          ))}
+        </ul>
+      </fieldset>
 
-      <ErrorBox error={error} />
-      {saved && <p className="ok">Perfil guardado ✔</p>}
-      <button type="submit">Guardar perfil</button>
-    </form>
-  );
+      <ErrorBox error={error} />
+      {saved && <p className="ok">Perfil guardado ✔</p>}
+      <button type="submit">Guardar perfil</button>
+    </form>
+  );
 }
 ```
 
@@ -2020,53 +2020,53 @@ import { DAYS, LEVELS, useSkills } from '../hooks';
 import ErrorBox from '../components/ErrorBox';
 
 export default function Search() {
-  const { skills, byId } = useSkills();
-  const [skillId, setSkillId] = useState('');
-  const [results, setResults] = useState(null);
-  const [error, setError] = useState(null);
+  const { skills, byId } = useSkills();
+  const [skillId, setSkillId] = useState('');
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
 
-  async function search(e) {
-    e.preventDefault();
-    setError(null);
-    try {
-      setResults(await api(`/api/users?offers=${encodeURIComponent(skillId)}`));
-    } catch (err) {
-      setError(err);
-    }
-  }
+  async function search(e) {
+    e.preventDefault();
+    setError(null);
+    try {
+      setResults(await api(`/api/users?offers=${encodeURIComponent(skillId)}`));
+    } catch (err) {
+      setError(err);
+    }
+  }
 
-  return (
-    <section>
-      <form className="card row" onSubmit={search}>
-        <label className="grow">¿Qué quieres aprender?
-          <select value={skillId} onChange={(e) => setSkillId(e.target.value)} required>
-            <option value="">Elige una habilidad…</option>
-            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-        </label>
-        <button type="submit">Buscar quién la enseña</button>
-      </form>
-      <ErrorBox error={error} />
-      {results && results.length === 0 && <p className="muted">Nadie ofrece esta habilidad todavía.</p>}
-      <div className="grid">
-        {results?.map((u) => {
-          const offer = u.offeredSkills.find((o) => o.skillId === skillId);
-          return (
-            <article className="card" key={u.id}>
-              <h3>{u.displayName}</h3>
-              <p>{u.bio}</p>
-              <p><strong>{byId[skillId]?.name}</strong> · {LEVELS[offer?.level]}</p>
-              <p className="muted">
-                {u.availability.length
-                  ? u.availability.map((s) => `${DAYS[s.day].slice(0, 3)} ${s.start}-${s.end}`).join(' · ')
-                  : 'Sin disponibilidad registrada'}
-              </p>
-            </article>
-          );
-        })}
-      </div>
-    </section>
-  );
+  return (
+    <section>
+      <form className="card row" onSubmit={search}>
+        <label className="grow">¿Qué quieres aprender?
+          <select value={skillId} onChange={(e) => setSkillId(e.target.value)} required>
+            <option value="">Elige una habilidad…</option>
+            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+        </label>
+        <button type="submit">Buscar quién la enseña</button>
+      </form>
+      <ErrorBox error={error} />
+      {results && results.length === 0 && <p className="muted">Nadie ofrece esta habilidad todavía.</p>}
+      <div className="grid">
+        {results?.map((u) => {
+          const offer = u.offeredSkills.find((o) => o.skillId === skillId);
+          return (
+            <article className="card" key={u.id}>
+              <h3>{u.displayName}</h3>
+              <p>{u.bio}</p>
+              <p><strong>{byId[skillId]?.name}</strong> · {LEVELS[offer?.level]}</p>
+              <p className="muted">
+                {u.availability.length
+                  ? u.availability.map((s) => `${DAYS[s.day].slice(0, 3)} ${s.start}-${s.end}`).join(' · ')
+                  : 'Sin disponibilidad registrada'}
+              </p>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
 }
 ```
 
@@ -2082,79 +2082,79 @@ import { STATUS, useSkills } from '../hooks';
 import ErrorBox from '../components/ErrorBox';
 
 export default function Requests() {
-  const { skills } = useSkills();
-  const [items, setItems] = useState([]);
-  const [filterSkill, setFilterSkill] = useState('');
-  const [onlyMine, setOnlyMine] = useState(false);
-  const [form, setForm] = useState({ skillId: '', description: '', durationMinutes: 60 });
-  const [error, setError] = useState(null);
+  const { skills } = useSkills();
+  const [items, setItems] = useState([]);
+  const [filterSkill, setFilterSkill] = useState('');
+  const [onlyMine, setOnlyMine] = useState(false);
+  const [form, setForm] = useState({ skillId: '', description: '', durationMinutes: 60 });
+  const [error, setError] = useState(null);
 
-  const load = useCallback(async () => {
-    const params = new URLSearchParams();
-    if (filterSkill) params.set('skillId', filterSkill);
-    if (onlyMine) params.set('mine', 'true');
-    try {
-      setItems(await api(`/api/requests?${params}`));
-    } catch (err) {
-      setError(err);
-    }
-  }, [filterSkill, onlyMine]);
+  const load = useCallback(async () => {
+    const params = new URLSearchParams();
+    if (filterSkill) params.set('skillId', filterSkill);
+    if (onlyMine) params.set('mine', 'true');
+    try {
+      setItems(await api(`/api/requests?${params}`));
+    } catch (err) {
+      setError(err);
+    }
+  }, [filterSkill, onlyMine]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { load(); }, [load]);
 
-  async function create(e) {
-    e.preventDefault();
-    setError(null);
-    try {
-      await api('/api/requests', { method: 'POST', body: { ...form, durationMinutes: Number(form.durationMinutes) } });
-      setForm({ skillId: '', description: '', durationMinutes: 60 });
-      load();
-    } catch (err) {
-      setError(err);
-    }
-  }
+  async function create(e) {
+    e.preventDefault();
+    setError(null);
+    try {
+      await api('/api/requests', { method: 'POST', body: { ...form, durationMinutes: Number(form.durationMinutes) } });
+      setForm({ skillId: '', description: '', durationMinutes: 60 });
+      load();
+    } catch (err) {
+      setError(err);
+    }
+  }
 
-  return (
-    <section>
-      <form className="card" onSubmit={create}>
-        <h2>Nueva solicitud de aprendizaje</h2>
-        <div className="row">
-          <select value={form.skillId} onChange={(e) => setForm({ ...form, skillId: e.target.value })} required>
-            <option value="">Habilidad…</option>
-            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-          </select>
-          <select value={form.durationMinutes} onChange={(e) => setForm({ ...form, durationMinutes: e.target.value })}>
-            {[30, 60, 90, 120].map((m) => <option key={m} value={m}>{m} min</option>)}
-          </select>
-        </div>
-        <textarea rows={3} placeholder="Cuéntanos qué quieres aprender…" value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })} required />
-        <ErrorBox error={error} />
-        <button type="submit">Publicar solicitud</button>
-      </form>
+  return (
+    <section>
+      <form className="card" onSubmit={create}>
+        <h2>Nueva solicitud de aprendizaje</h2>
+        <div className="row">
+          <select value={form.skillId} onChange={(e) => setForm({ ...form, skillId: e.target.value })} required>
+            <option value="">Habilidad…</option>
+            {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+          </select>
+          <select value={form.durationMinutes} onChange={(e) => setForm({ ...form, durationMinutes: e.target.value })}>
+            {[30, 60, 90, 120].map((m) => <option key={m} value={m}>{m} min</option>)}
+          </select>
+        </div>
+        <textarea rows={3} placeholder="Cuéntanos qué quieres aprender…" value={form.description}
+          onChange={(e) => setForm({ ...form, description: e.target.value })} required />
+        <ErrorBox error={error} />
+        <button type="submit">Publicar solicitud</button>
+      </form>
 
-      <div className="card row">
-        <select value={filterSkill} onChange={(e) => setFilterSkill(e.target.value)}>
-          <option value="">Todas las habilidades</option>
-          {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
-        </select>
-        <label className="inline">
-          <input type="checkbox" checked={onlyMine} onChange={(e) => setOnlyMine(e.target.checked)} /> Solo mías
-        </label>
-      </div>
+      <div className="card row">
+        <select value={filterSkill} onChange={(e) => setFilterSkill(e.target.value)}>
+          <option value="">Todas las habilidades</option>
+          {skills.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
+        </select>
+        <label className="inline">
+          <input type="checkbox" checked={onlyMine} onChange={(e) => setOnlyMine(e.target.checked)} /> Solo mías
+        </label>
+      </div>
 
-      <div className="grid">
-        {items.map((r) => (
-          <article className="card" key={r.id}>
-            <h3>{r.skillName} <span className={`badge ${r.status}`}>{STATUS[r.status]}</span></h3>
-            <p>{r.description}</p>
-            <p className="muted">{r.requesterName} · {r.durationMinutes} min</p>
-          </article>
-        ))}
-        {items.length === 0 && <p className="muted">No hay solicitudes con estos filtros.</p>}
-      </div>
-    </section>
-  );
+      <div className="grid">
+        {items.map((r) => (
+          <article className="card" key={r.id}>
+            <h3>{r.skillName} <span className={`badge ${r.status}`}>{STATUS[r.status]}</span></h3>
+            <p>{r.description}</p>
+            <p className="muted">{r.requesterName} · {r.durationMinutes} min</p>
+          </article>
+        ))}
+        {items.length === 0 && <p className="muted">No hay solicitudes con estos filtros.</p>}
+      </div>
+    </section>
+  );
 }
 ```
 
@@ -2165,7 +2165,7 @@ export default function Requests() {
 
 ```css
 :root { --bg:#f5f7fb; --fg:#1b2434; --brand:#0e8f83; --muted:#6b7587; --line:#dde3ee; --err:#b3261e; }
-* { box-sizing: border-box; }
+- { box-sizing: border-box; }
 body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--fg); }
 .topbar { display:flex; align-items:center; gap:1rem; padding:.75rem 1.25rem; background:#fff; border-bottom:1px solid var(--line); flex-wrap:wrap; }
 .brand { font-weight:700; color:var(--brand); }
@@ -2211,13 +2211,13 @@ h1, h2, h3 { margin:.2rem 0; }
 ### 7.9 Ejecutar el frontend
 
 ```bash
-npm run dev:web        # → http://localhost:5173
+npm run dev:web        # → http://localhost:5173
 ```
 
 Para comprobar que compila (lo hará también el CI en R3):
 
 ```bash
-npm run build -w apps/web      # debe terminar con "✓ built in ..."
+npm run build -w apps/web      # debe terminar con "✓ built in ..."
 ```
 
 ---
@@ -2299,10 +2299,10 @@ git clone https://github.com/legarciabal-coder/skillBarter.git
 cd skillBarter
 cp .env.example .env
 npm install
-npm run emulators      # terminal 1
-npm run seed:skills    # terminal 2 (una vez por cada arranque del emulador)
-npm run dev:api        # terminal 2 → http://localhost:3000
-npm run dev:web        # terminal 3 → http://localhost:5173
+npm run emulators      # terminal 1
+npm run seed:skills    # terminal 2 (una vez por cada arranque del emulador)
+npm run dev:api        # terminal 2 → http://localhost:3000
+npm run dev:web        # terminal 3 → http://localhost:5173
 ```
 
 ## Pruebas
@@ -2357,23 +2357,23 @@ Los diagramas **Mermaid** se renderizan solos en GitHub.
 
 ```mermaid
 flowchart LR
-  subgraph Cliente["Navegador · apps/web (React + Vite)"]
-    UI["Vistas: Login · Perfil · Buscar · Solicitudes"]
-    SDK["Firebase Auth SDK"]
-  end
-  subgraph Servidor["API REST · apps/api (Node.js + Express)"]
-    MW["Middleware: autenticación · validación · errores"]
-    RT["Rutas: users · skills · requests"]
-    SV["Servicios: reglas de negocio"]
-  end
-  subgraph Firebase["Firebase"]
-    AUTH[("Authentication")]
-    FS[("Cloud Firestore")]
-  end
-  UI -->|"correo y contraseña"| SDK --> AUTH
-  UI -->|"HTTPS + ID token"| MW --> RT --> SV
-  MW -->|"verifyIdToken"| AUTH
-  SV -->|"Admin SDK"| FS
+  subgraph Cliente["Navegador · apps/web (React + Vite)"]
+    UI["Vistas: Login · Perfil · Buscar · Solicitudes"]
+    SDK["Firebase Auth SDK"]
+  end
+  subgraph Servidor["API REST · apps/api (Node.js + Express)"]
+    MW["Middleware: autenticación · validación · errores"]
+    RT["Rutas: users · skills · requests"]
+    SV["Servicios: reglas de negocio"]
+  end
+  subgraph Firebase["Firebase"]
+    AUTH[("Authentication")]
+    FS[("Cloud Firestore")]
+  end
+  UI -->|"correo y contraseña"| SDK --> AUTH
+  UI -->|"HTTPS + ID token"| MW --> RT --> SV
+  MW -->|"verifyIdToken"| AUTH
+  SV -->|"Admin SDK"| FS
 ```
 
 ## Decisiones
@@ -2385,20 +2385,20 @@ flowchart LR
 ## Bocetos de las 4 pantallas
 
 ```text
-┌ Iniciar sesión ────────────┐   ┌ Mi perfil ─────────────────────────────────┐
-│ ⏳ SkillBarter              │   │ Nombre público  [______________]            │
-│ Correo      [____________] │   │ Sobre mí        [______________]            │
-│ Contraseña  [____________] │   │ Habilidades que ofrezco  [Guitarra▾][Avz▾]+ │
-│ [ Entrar ]                 │   │ Temas que quiero aprender (Python) (SQL)…   │
-│ ¿No tienes cuenta?         │   │ Disponibilidad  [Lun▾][18:00][20:00] +      │
-└────────────────────────────┘   │ [ Guardar perfil ]                          │
-                                 └─────────────────────────────────────────────┘
+┌ Iniciar sesión ────────────┐   ┌ Mi perfil ─────────────────────────────────┐
+│ ⏳ SkillBarter              │   │ Nombre público  [______________]            │
+│ Correo      [____________] │   │ Sobre mí        [______________]            │
+│ Contraseña  [____________] │   │ Habilidades que ofrezco  [Guitarra▾][Avz▾]+ │
+│ [ Entrar ]                 │   │ Temas que quiero aprender (Python) (SQL)…   │
+│ ¿No tienes cuenta?         │   │ Disponibilidad  [Lun▾][18:00][20:00] +      │
+└────────────────────────────┘   │ [ Guardar perfil ]                          │
+                                 └─────────────────────────────────────────────┘
 ┌ Buscar ────────────────────────────┐ ┌ Solicitudes ───────────────────────────┐
-│ ¿Qué quieres aprender? [Guitarra▾] │ │ Nueva solicitud [Habilidad▾][60 min▾]  │
-│ [ Buscar quién la enseña ]         │ │ [ Descripción… ]  [ Publicar ]         │
-│ ┌ Ana Pérez · Avanzado ┐           │ │ Filtros [Todas▾] ☐ Solo mías           │
-│ │ Lun 18:00-20:00      │           │ │ ┌ Python · Abierta ┐ ┌ Guitarra … ┐    │
-│ └──────────────────────┘           │ └────────────────────────────────────────┘
+│ ¿Qué quieres aprender? [Guitarra▾] │ │ Nueva solicitud [Habilidad▾][60 min▾]  │
+│ [ Buscar quién la enseña ]         │ │ [ Descripción… ]  [ Publicar ]         │
+│ ┌ Ana Pérez · Avanzado ┐           │ │ Filtros [Todas▾] ☐ Solo mías           │
+│ │ Lun 18:00-20:00      │           │ │ ┌ Python · Abierta ┐ ┌ Guitarra … ┐    │
+│ └──────────────────────┘           │ └────────────────────────────────────────┘
 └────────────────────────────────────┘
 ```
 ````
@@ -2413,35 +2413,35 @@ En **R1** se implementan las tres primeras; las demás se añaden en R2/R3.
 
 ```mermaid
 erDiagram
-  users ||--o{ learningRequests : publica
-  skills ||--o{ learningRequests : trata_de
-  users ||--o{ sessions : "enseña / aprende"
-  users ||--|| wallets : posee
-  users ||--o{ creditTransactions : registra
-  sessions ||--o{ creditTransactions : genera
-  sessions ||--o{ reviews : recibe
-  users {
-    string uid PK
-    string displayName
-    string role "member | admin"
-    array offeredSkills
-    array offeredSkillIds
-    array wantedSkills
-    array availability
-  }
-  skills {
-    string id PK "slug, p. ej. guitarra"
-    string name
-    string category
-  }
-  learningRequests {
-    string id PK
-    string requesterId FK
-    string skillId FK
-    string description
-    number durationMinutes
-    string status "open | matched | fulfilled | cancelled"
-  }
+  users ||--o{ learningRequests : publica
+  skills ||--o{ learningRequests : trata_de
+  users ||--o{ sessions : "enseña / aprende"
+  users ||--|| wallets : posee
+  users ||--o{ creditTransactions : registra
+  sessions ||--o{ creditTransactions : genera
+  sessions ||--o{ reviews : recibe
+  users {
+    string uid PK
+    string displayName
+    string role "member | admin"
+    array offeredSkills
+    array offeredSkillIds
+    array wantedSkills
+    array availability
+  }
+  skills {
+    string id PK "slug, p. ej. guitarra"
+    string name
+    string category
+  }
+  learningRequests {
+    string id PK
+    string requesterId FK
+    string skillId FK
+    string description
+    number durationMinutes
+    string status "open | matched | fulfilled | cancelled"
+  }
 ```
 
 ## Colección `users/{uid}` (R1)
@@ -2499,7 +2499,7 @@ La última prueba es la más valiosa: **otra persona** debe poder ejecutar el pr
 ```bash
 # Cuando todas las PR de feature/* estén fusionadas en develop:
 git checkout develop && git pull
-npm install && npm test                    # una última comprobación local
+npm install && npm test                    # una última comprobación local
 git checkout main && git pull
 git merge --no-ff develop -m "release: R1"
 git push origin main
@@ -2568,7 +2568,7 @@ El nombre debe ser **exactamente** `revision-1-2026-11-19` y apuntar al commit e
 git checkout main && git pull
 git tag -a revision-1-2026-11-19 -m "Revisión 1: arquitectura y primera operación con Firebase"
 git push origin revision-1-2026-11-19
-git tag -l "revision-*"                       # comprobar
+git tag -l "revision-*"                       # comprobar
 ```
 
 Comprueben en GitHub → **Releases/Tags** que aparece. **Envíen el enlace del repositorio al docente antes de la exposición.**
@@ -2632,3 +2632,6 @@ Comprueben en GitHub → **Releases/Tags** que aparece. **Envíen el enlace del 
 ### Siguiente paso
 
 Cuando R1 esté entregada: continúen con **[R2-guia-entrega-2.md](R2-guia-entrega-2.md)** (jueves 26 de noviembre): sesiones, permisos de dos roles, CRUD completo, motor de compatibilidad v1 y libro de movimientos.
+
+
+Yo soy Leo, P1 y P2 vamos a ir siguiendo este md paso a paso, estoy trabajando ahora mismo con otros dos compañeros (kevin P3 y Jorge P4, P5) ayudanos a ir siguiendo este md paso a paso haciendo push y commits donde sea necesario y dónde tenemos que parar para esperar a que el otro termina la parte que necesitemos, mis compañeros irán siguiendo en su propia cuenta de gemini usando este mismo prompt con los nombres cambiados, considera por favor las pausas necesarias para trabajar a la par correctamente

@@ -1,0 +1,49 @@
+rules_version = '2';
+
+// Regla de oro: TODA escritura pasa por la API (Admin SDK, que ignora estas reglas).
+// Los clientes web nunca pueden escribir en Firestore; solo leen lo que les pertenece.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    match /skills/{skillId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /learningRequests/{requestId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    match /sessions/{sessionId} {
+      allow read: if signedIn()
+        && (resource.data.teacherId == request.auth.uid
+            || resource.data.learnerId == request.auth.uid);
+      allow write: if false;
+    }
+
+    match /wallets/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /creditTransactions/{txId} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+  }
+}
