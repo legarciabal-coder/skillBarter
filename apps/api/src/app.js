@@ -17,6 +17,10 @@ function createApp({ db, verifyToken }) {
   app.use('/api/skills', require('./routes/skills')({ db, auth }));
   app.use('/api/users', require('./routes/users')({ db, auth }));
   app.use('/api/requests', require('./routes/requests')({ db, auth }));
+  app.use('/api/sessions', require('./routes/sessions')({ db, auth }));
+  app.use('/api/wallet', require('./routes/wallet')({ db, auth }));
+  app.use('/api/matches', require('./routes/matches')({ db, auth }));
+  app.use('/api/admin', require('./routes/admin')({ db, auth }));
 
   app.use(notFound);
   app.use(errorHandler);
