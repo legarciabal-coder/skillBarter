@@ -10,7 +10,9 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "seed:skills": "node scripts/seed-skills.js",
-    "token": "node scripts/get-token.js"
+    "make-admin": "node scripts/make-admin.js",
+    "token": "node scripts/get-token.js",
+    "seed:demo": "node scripts/seed-demo.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
