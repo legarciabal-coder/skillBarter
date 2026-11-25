@@ -2,7 +2,7 @@ const express = require('express');
 const { HttpError, asyncHandler } = require('../utils/errors');
 const { docToJson } = require('../utils/serialize');
 const { validate } = require('../middleware/validate');
-const { requestCreateSchema, requestListSchema, idParams } = require('../services/schemas');
+const { requestCreateSchema, requestUpdateSchema, requestListSchema, idParams } = require('../services/schemas');
 const { assertSkillsExist } = require('../services/skillsService');
 const { FieldValue } = require('firebase-admin/firestore');
 
@@ -60,6 +60,46 @@ module.exports = function requestsRouter({ db, auth }) {
       const snap = await db.collection('learningRequests').doc(req.params.id).get();
       if (!snap.exists) throw new HttpError(404, 'NOT_FOUND', 'Solicitud no encontrada');
       res.json(docToJson(snap));
+    })
+  );
+
+  // Carga la solicitud y comprueba que quien la modifica sea el dueño (o admin).
+  async function loadOwned(req) {
+    const ref = db.collection('learningRequests').doc(req.params.id);
+    const snap = await ref.get();
+    if (!snap.exists) throw new HttpError(404, 'NOT_FOUND', 'Solicitud no encontrada');
+    if (snap.data().requesterId !== req.user.id && req.user.role !== 'admin') {
+      throw new HttpError(403, 'FORBIDDEN', 'Solo el autor puede modificar esta solicitud');
+    }
+    return { ref, data: snap.data() };
+  }
+
+  router.patch(
+    '/:id',
+    ...auth.member,
+    validate(idParams, 'params'),
+    validate(requestUpdateSchema),
+    asyncHandler(async (req, res) => {
+      const { ref, data } = await loadOwned(req);
+      if (data.status !== 'open') {
+        throw new HttpError(409, 'REQUEST_NOT_OPEN', 'Solo se pueden editar solicitudes abiertas');
+      }
+      await ref.update({ ...req.body, updatedAt: FieldValue.serverTimestamp() });
+      res.json(docToJson(await ref.get()));
+    })
+  );
+
+  router.delete(
+    '/:id',
+    ...auth.member,
+    validate(idParams, 'params'),
+    asyncHandler(async (req, res) => {
+      const { ref, data } = await loadOwned(req);
+      if (!['open', 'cancelled'].includes(data.status)) {
+        throw new HttpError(409, 'REQUEST_IN_PROGRESS', 'No se puede eliminar una solicitud en curso o cumplida');
+      }
+      await ref.delete();
+      res.status(204).end();
     })
   );
 

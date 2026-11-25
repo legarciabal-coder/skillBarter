@@ -13,7 +13,9 @@
     "emulators": "firebase emulators:start --only auth,firestore --project demo-skillbarter",
     "seed:skills": "npm run seed:skills -w apps/api",
     "test": "firebase emulators:exec --only firestore --project demo-skillbarter \"jest --runInBand\"",
-    "token": "npm run token -w apps/api --"
+    "make-admin": "npm run make-admin -w apps/api --",
+    "token": "npm run token -w apps/api --",
+    "seed:demo": "npm run seed:demo -w apps/api"
   },
   "devDependencies": {
     "firebase-tools": "^15.0.0",

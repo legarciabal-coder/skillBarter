@@ -4,19 +4,11 @@ const { docToJson, serialize } = require('../utils/serialize');
 const { validate } = require('../middleware/validate');
 const { profileSchema, userSearchSchema } = require('../services/schemas');
 const { assertSkillsExist } = require('../services/skillsService');
+const { toPublicProfile } = require('../services/publicProfile');
+const { ensureWallet } = require('../services/walletService');
 const { FieldValue } = require('firebase-admin/firestore');
 
-const toPublicProfile = (u) => ({
-  id: u.id,
-  displayName: u.displayName,
-  bio: u.bio,
-  offeredSkills: u.offeredSkills,
-  wantedSkills: u.wantedSkills,
-  availability: u.availability,
-  ratingAvg: u.ratingAvg ?? null,
-  ratingCount: u.ratingCount ?? 0,
-});
-
+// offeredSkillIds / wantedSkillIds están desnormalizados para poder usar array-contains.
 const profileFields = (p) => ({
   displayName: p.displayName,
   bio: p.bio,
@@ -29,6 +21,7 @@ const profileFields = (p) => ({
 module.exports = function usersRouter({ db, auth }) {
   const router = express.Router();
 
+  // Alta de perfil (primer acceso tras registrarse en Firebase Auth).
   router.post(
     '/me',
     auth.authenticate,
@@ -41,7 +34,7 @@ module.exports = function usersRouter({ db, auth }) {
         await ref.create({
           ...profileFields(p),
           email: req.auth.email,
-          role: 'member',
+          role: 'member', // el rol lo fija el servidor, jamás el cliente
           disabled: false,
           ratingSum: 0,
           ratingCount: 0,
@@ -53,6 +46,7 @@ module.exports = function usersRouter({ db, auth }) {
         if (err.code === 6) throw new HttpError(409, 'PROFILE_EXISTS', 'El perfil ya existe; usa PUT /api/users/me');
         throw err;
       }
+      await ensureWallet(db, req.auth.uid); // bono de bienvenida (idempotente)
       res.status(201).json(docToJson(await ref.get()));
     })
   );
@@ -80,6 +74,7 @@ module.exports = function usersRouter({ db, auth }) {
     })
   );
 
+  // Búsqueda de miembros por habilidad ofrecida (offers) y/o deseada (wants).
   router.get(
     '/',
     ...auth.member,
@@ -87,6 +82,7 @@ module.exports = function usersRouter({ db, auth }) {
     asyncHandler(async (req, res) => {
       const { offers, wants } = req.query;
       let query = db.collection('users');
+      // Firestore permite un solo array-contains por consulta: el segundo filtro se aplica en memoria.
       if (offers) query = query.where('offeredSkillIds', 'array-contains', offers);
       else if (wants) query = query.where('wantedSkills', 'array-contains', wants);
       const snap = await query.limit(100).get();
@@ -101,5 +97,3 @@ module.exports = function usersRouter({ db, auth }) {
 
   return router;
 };
-
-module.exports.toPublicProfile = toPublicProfile;

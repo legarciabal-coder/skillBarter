@@ -1,13 +1,14 @@
 const { z } = require('zod');
 
 const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
+// Identificador de documento seguro: evita rutas como "a/b" que romperían db.doc().
 const docId = z.string().regex(/^[A-Za-z0-9_-]{1,128}$/, 'Identificador inválido');
 const idParams = z.object({ id: docId });
 const skillId = z.string().regex(/^[a-z0-9-]{1,60}$/, 'Identificador de habilidad inválido');
 
 const availabilitySlot = z
   .object({
-    day: z.number().int().min(0).max(6),
+    day: z.number().int().min(0).max(6), // 0 = domingo ... 6 = sábado
     start: z.string().regex(HHMM, 'Formato HH:MM'),
     end: z.string().regex(HHMM, 'Formato HH:MM'),
   })
@@ -32,6 +33,49 @@ const requestCreateSchema = z.object({
   durationMinutes: z.number().int().refine((n) => DURATIONS.includes(n), 'Duración permitida: 30, 60, 90 o 120').default(60),
 });
 
+const requestUpdateSchema = z
+  .object({
+    description: z.string().trim().min(10).max(500).optional(),
+    durationMinutes: z.number().int().refine((n) => DURATIONS.includes(n), 'Duración permitida: 30, 60, 90 o 120').optional(),
+  })
+  .refine((o) => Object.keys(o).length > 0, { message: 'Envía al menos un campo a modificar' });
+
+const sessionCreateSchema = z.object({
+  teacherId: docId,
+  skillId,
+  startAt: z.string().datetime({ offset: true, message: 'Fecha inválida (usa formato ISO 8601)' }).transform((s) => new Date(s)),
+  durationMinutes: z.number().int().refine((n) => DURATIONS.includes(n), 'Duración permitida: 30, 60, 90 o 120'),
+  requestId: docId.optional(),
+  notes: z.string().trim().max(300).default(''),
+});
+
+const sessionListSchema = z.object({
+  as: z.enum(['teacher', 'learner']).optional(),
+  status: z.enum(['pending', 'accepted', 'rejected', 'cancelled', 'completed']).optional(),
+});
+
+const sessionActionParams = z.object({
+  id: docId,
+  action: z.enum(['accept', 'reject', 'cancel', 'confirm']),
+});
+
+const skillSchema = z.object({
+  id: skillId,
+  name: z.string().trim().min(2).max(60),
+  category: z.string().trim().min(2).max(40),
+});
+const skillUpdateSchema = skillSchema.omit({ id: true });
+
+const adminUserPatchSchema = z
+  .object({ role: z.enum(['member', 'admin']).optional(), disabled: z.boolean().optional() })
+  .refine((o) => Object.keys(o).length > 0, { message: 'Envía role y/o disabled' });
+
+const matchesQuerySchema = z.object({ skillId });
+
+const transactionsQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(100).default(50),
+});
+
 const userSearchSchema = z.object({
   offers: skillId.optional(),
   wants: skillId.optional(),
@@ -50,6 +94,15 @@ module.exports = {
   DURATIONS,
   profileSchema,
   requestCreateSchema,
+  requestUpdateSchema,
   requestListSchema,
+  sessionCreateSchema,
+  sessionListSchema,
+  sessionActionParams,
+  skillSchema,
+  skillUpdateSchema,
+  adminUserPatchSchema,
+  matchesQuerySchema,
+  transactionsQuerySchema,
   userSearchSchema,
 };
