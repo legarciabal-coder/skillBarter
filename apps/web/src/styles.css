@@ -39,3 +39,12 @@ fieldset { border:1px solid var(--line); border-radius:10px; }
 .center { text-align:center; margin-top:3rem; }
 h1, h2, h3 { margin:.2rem 0; }
 @media (max-width:600px) { .row { flex-direction:column; align-items:stretch; } }
+.reasons { margin:0; padding-left:1.1rem; font-size:.85rem; color:var(--muted); }
+.big { font-size:1.8rem; font-weight:700; margin:0; }
+table { width:100%; border-collapse:collapse; font-size:.9rem; }
+th, td { text-align:left; padding:.45rem .5rem; border-bottom:1px solid var(--line); }
+.pos { color:#0a7a3b; font-weight:600; }
+.neg { color:var(--err); font-weight:600; }
+.stats { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+@media (max-width:600px) { table { display:block; overflow-x:auto; } }
+section > h1 { margin-bottom:.8rem; }
